@@ -49,12 +49,6 @@ app.use('/api/admin',   require('./routes/admin'));
 app.use('/api/govt',    require('./routes/govt'));
 
 
-app.use((req, res) => res.status(404).json({ message: `Route ${req.originalUrl} not found.` }));
-app.use((err, req, res, next) => {
-  console.error('Unhandled error:', err);
-  res.status(500).json({ message: 'Internal server error.' });
-});
-
 // ── Auto-expiry scheduler: runs every 60 seconds ──
 // Expires any booking whose slot end_time has passed and status is still 'booked'
 // Sends notification to citizen and broadcasts socket event
@@ -118,6 +112,12 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+});
+
+app.use((req, res) => res.status(404).json({ message: `Route ${req.originalUrl} not found.` }));
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).json({ message: 'Internal server error.' });
 });
 
 const PORT = process.env.PORT || 5000;
