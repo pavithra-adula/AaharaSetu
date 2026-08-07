@@ -335,8 +335,8 @@ tr:hover td{background:#f8fafc}
 // ============================================================
 // CONFIG
 // ============================================================
-const API = 'http://localhost:5555/api';
-const BACKEND = 'http://localhost:5555';
+const BACKEND = window.location.origin;
+const API = `${BACKEND}/api`;
 
 // ============================================================
 // STATE
