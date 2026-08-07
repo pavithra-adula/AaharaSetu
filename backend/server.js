@@ -48,9 +48,6 @@ app.use('/api/citizen', require('./routes/citizen'));
 app.use('/api/admin',   require('./routes/admin'));
 app.use('/api/govt',    require('./routes/govt'));
 
-app.get('/', (req, res) => {
-  res.json({ status: 'running', api_base: `http://localhost:${process.env.PORT || 5000}/api` });
-});
 
 app.use((req, res) => res.status(404).json({ message: `Route ${req.originalUrl} not found.` }));
 app.use((err, req, res, next) => {
