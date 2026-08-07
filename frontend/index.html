@@ -1,0 +1,2609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AaharaSetu</title>
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#1a2744;--navy2:#1e3a5f;
+  --blue:#2563eb;--blue2:#3b82f6;--blue4:#eff6ff;--blue3:#dbeafe;
+  --text:#1e293b;--text2:#64748b;--text3:#94a3b8;
+  --card:#fff;--border:#e2e8f0;--bg:#f1f5f9;
+  --green:#059669;--red:#dc2626;--amber:#d97706;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+}
+body{background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
+h1,h2,h3,h4{font-family:'Segoe UI',Arial,sans-serif}
+.hidden{display:none!important}
+nav{background:var(--navy);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.nav-brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:.9rem}
+.nav-links{display:flex;align-items:center;gap:.6rem}
+.btn{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:500;transition:all .15s;font-family:inherit}
+.btn-blue{background:var(--blue);color:#fff;font-weight:600}.btn-blue:hover{background:#1d4ed8}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg)}
+.btn-ob{background:transparent;border:1px solid var(--blue);color:var(--blue)}.btn-ob:hover{background:var(--blue4)}
+.btn-sm{padding:5px 13px;font-size:12px}
+.btn-ok{background:var(--green);color:#fff;border:none;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px}
+.btn-del{background:#fee2e2;color:var(--red);border:none;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:12px}
+.bnav{background:transparent;color:#cbd5e1;border:1px solid #334155;border-radius:7px;padding:6px 14px;font-size:13px;cursor:pointer;transition:.15s}.bnav:hover{background:#334155;color:#fff}
+.bnavs{background:var(--blue2);color:#fff;border:none;border-radius:7px;padding:6px 14px;font-size:13px;cursor:pointer}
+.page{min-height:calc(100vh - 64px);animation:fi .2s ease}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.hero{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(160deg,#eff6ff,#dbeafe,#bfdbfe)}
+.hero h1{font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:1rem;color:var(--navy)}
+.hero h1 span{color:var(--blue)}
+.hero p{color:var(--text2);max-width:520px;margin:0 auto 2rem;line-height:1.7}
+.hero-pill{display:inline-block;background:#fff;border:1px solid #bfdbfe;border-radius:20px;padding:5px 16px;font-size:.76rem;color:var(--blue);margin-bottom:1.1rem;font-weight:600}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.9rem;max-width:660px;margin:2rem auto 0}
+.fc{background:#fff;border:1px solid #bfdbfe;border-radius:12px;padding:1rem;text-align:left}
+.fc .ic{font-size:1.2rem;margin-bottom:.35rem}
+.fc h4{font-size:.8rem;color:var(--blue);margin-bottom:.15rem;font-weight:700}
+.fc p{font-size:.74rem;color:var(--text2)}
+.auth-page{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 64px);padding:2rem;background:var(--bg)}
+.auth-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;width:100%;max-width:460px;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.auth-card h2{font-size:1.4rem;margin-bottom:.25rem;color:var(--navy)}
+.auth-card>p{color:var(--text2);font-size:.87rem;margin-bottom:1.2rem}
+.fg{margin-bottom:.85rem}
+.fg label{display:block;font-size:.8rem;color:var(--text2);margin-bottom:.28rem;font-weight:500}
+.fg input,.fg select,.fg textarea{width:100%;background:#f8fafc;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;transition:border .15s;font-family:inherit}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue);background:#fff}
+.fg select option{background:#fff}
+.fg textarea{min-height:100px;resize:vertical}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.auth-link{text-align:center;margin-top:1rem;font-size:.82rem;color:var(--text2)}
+.auth-link a{color:var(--blue);cursor:pointer;font-weight:500}
+.rtabs{display:flex;gap:.5rem;margin-bottom:1.2rem}
+.rtab{flex:1;padding:9px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-size:.86rem;transition:all .15s;font-family:inherit;font-weight:500}
+.rtab.on{border-color:var(--blue);color:var(--blue);background:var(--blue4)}
+.dl{display:flex;min-height:calc(100vh - 64px)}
+.sidebar{width:210px;background:var(--navy);padding:.8rem 0;flex-shrink:0}
+.si{display:flex;align-items:center;gap:10px;padding:10px 1.2rem;cursor:pointer;font-size:.84rem;color:#94a3b8;transition:all .15s;border-left:3px solid transparent}
+.si:hover{background:rgba(255,255,255,.06);color:#e2e8f0}
+.si.on{color:#93c5fd;background:rgba(96,165,250,.1);border-left-color:#60a5fa}
+.dc{flex:1;padding:2rem;overflow-y:auto;max-height:calc(100vh - 64px);background:var(--bg)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.ct{font-size:.9rem;font-weight:700;margin-bottom:.9rem;color:var(--navy)}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1rem}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(142px,1fr));gap:.8rem}
+.bdg{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.71rem;font-weight:600}
+.bgg{background:#dcfce7;color:#15803d}.bgr{background:#fee2e2;color:#dc2626}
+.bga{background:#fef3c7;color:#d97706}.bgb{background:#dbeafe;color:#1d4ed8}
+.bggr{background:#f1f5f9;color:#64748b}
+.p1{background:#dcfce7;color:#15803d}.p2{background:#dbeafe;color:#1d4ed8}
+.p3{background:#fef3c7;color:#d97706}.p4{background:#f1f5f9;color:#64748b}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem}
+.sl{font-size:.75rem;color:var(--text2);margin-bottom:.28rem;font-weight:500}
+.sv{font-size:1.8rem;font-weight:700;color:var(--navy)}
+.ss{font-size:.74rem;color:var(--text2);margin-top:.18rem}
+.tc{border:2px solid var(--blue);border-radius:14px;padding:1.3rem;background:linear-gradient(135deg,#eff6ff,#dbeafe)}
+.tc.exp{border-color:var(--border);background:#f8fafc;opacity:.68}
+.tc.srv{border-color:var(--green);background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
+.tn{font-size:2.8rem;font-weight:700;color:var(--blue)}
+.tc.srv .tn{color:var(--green)}
+.stb{height:6px;border-radius:3px;background:#e2e8f0;margin-top:.32rem;overflow:hidden}
+.stf{height:100%;border-radius:3px}
+.ni{display:flex;gap:.8rem;padding:.88rem 1rem;border-bottom:1px solid var(--border);cursor:pointer}
+.ni:hover{background:#f8fafc}
+.ni.unr{border-left:3px solid var(--blue);background:#eff6ff}
+.nd{width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+th{text-align:left;padding:9px 11px;color:var(--text2);font-weight:600;border-bottom:2px solid var(--border);font-size:.75rem;background:#f8fafc}
+td{padding:9px 11px;border-bottom:1px solid #f1f5f9}
+tr:hover td{background:#f8fafc}
+.fqi{border-bottom:1px solid var(--border)}
+.fqq{padding:.88rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:.9rem;font-weight:500;color:var(--navy)}
+.fqa{padding-bottom:.88rem;color:var(--text2);font-size:.84rem;line-height:1.7;display:none}
+.fqa.op{display:block}
+.alert{padding:.88rem 1rem;border-radius:9px;margin-bottom:.88rem;font-size:.84rem}
+.alert-s{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d}
+.alert-e{background:#fef2f2;border:1px solid #fecaca;color:#dc2626}
+.alert-i{background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.tgl{position:relative;width:44px;height:24px;display:inline-block}
+.tgl input{opacity:0;width:0;height:0}
+.tsl{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:24px;transition:.3s}
+.tsl:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.tgl input:checked+.tsl{background:var(--green)}
+.tgl input:checked+.tsl:before{transform:translateX(20px)}
+.pm{position:relative}
+.pb{display:flex;align-items:center;gap:7px;padding:5px 11px;border-radius:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);cursor:pointer;font-size:.83rem;color:#e2e8f0}
+.pdd{position:absolute;right:0;top:calc(100% + 8px);background:var(--card);border:1px solid var(--border);border-radius:10px;min-width:170px;z-index:200;display:none;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.pdd.op{display:block}
+.pdi{padding:9px 13px;font-size:.83rem;cursor:pointer;color:var(--text2)}.pdi:hover{background:var(--bg);color:var(--text)}
+.pdi.d{color:var(--red)}
+.srow{display:flex;gap:.7rem;margin-bottom:1.2rem}
+.step{flex:1;padding:.5rem;border-radius:8px;font-size:.75rem;text-align:center;border:1.5px solid var(--border);color:var(--text2)}
+.step.ac{border-color:var(--blue);color:var(--blue);background:var(--blue4)}
+.step.dn{border-color:var(--green);color:var(--green);background:#f0fdf4}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.7rem;margin-bottom:1rem}
+.slc{background:#fff;border:2px solid var(--border);border-radius:10px;padding:.85rem 1rem;cursor:pointer;text-align:center;transition:all .15s;position:relative}
+.slc:hover:not(.slc-full){border-color:var(--blue);background:var(--blue4);transform:translateY(-1px)}
+.slc.slc-sel{border-color:var(--blue);background:var(--blue4);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+.slc.slc-full{background:#f8fafc;border-color:#e2e8f0;opacity:.5;cursor:not-allowed}
+.slc.slc-elder{border-color:var(--amber);background:#fffbeb}
+.slc.slc-elder:hover:not(.slc-full){border-color:var(--amber);background:#fef3c7}
+.slc.slc-sel.slc-elder{border-color:var(--amber);background:#fef3c7}
+.slt{font-size:.92rem;font-weight:700;color:var(--navy);display:block;margin-bottom:.22rem}
+.slr{font-size:.75rem;color:var(--text2)}
+.full-badge{position:absolute;top:5px;right:5px;background:#fee2e2;color:#dc2626;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:10px}
+.elder-badge{display:inline-block;background:#fef3c7;color:#d97706;font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:10px;margin-bottom:.3rem}
+.date-wrap{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:.65rem 1rem}
+.date-wrap label{font-size:.88rem;font-weight:600;color:var(--navy);white-space:nowrap}
+.date-wrap input[type=date]{border:none;background:transparent;color:var(--navy);font-size:.92rem;font-weight:500;outline:none;cursor:pointer;flex:1;font-family:inherit}
+.ibox{background:var(--blue4);border:1px solid #bfdbfe;border-radius:10px;padding:.88rem 1rem;font-size:.83rem;color:#1e40af;margin-bottom:1rem}
+.wbox{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:.88rem 1rem;font-size:.83rem;color:#92400e;margin-bottom:1rem}
+.chart-wrap{display:flex;align-items:flex-end;gap:4px;height:80px}
+.chart-col{flex:1;background:#bfdbfe;border-radius:3px 3px 0 0;cursor:pointer;transition:.15s}.chart-col:hover{background:var(--blue)}
+.shdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.3rem}
+.shdr h2{font-size:1.22rem;color:var(--navy)}
+.shdr p{color:var(--text2);font-size:.83rem;margin-top:.12rem}
+.divider{border:none;border-top:1px solid var(--border);margin:1rem 0}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.notif-badge{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:.62rem;font-weight:700;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;line-height:1;border:2px solid var(--navy)}
+/* OTP box */
+.otp-input{letter-spacing:8px;font-size:1.4rem;font-weight:700;text-align:center;width:100%;padding:12px;border:2px dashed var(--blue);border-radius:10px;background:var(--blue4);color:var(--navy)}
+.otp-timer{text-align:center;font-size:.85rem;color:var(--red);font-weight:600;margin-top:.5rem}
+@media(max-width:720px){.sidebar{display:none}.dc{padding:1rem}.frow{grid-template-columns:1fr}nav{padding:0 1rem}.g4{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <div class="nav-brand">
+    <img src="logo.png" alt="AaharaSetu" style="width:32px;height:32px;border-radius:6px;object-fit:cover;background:#fff;padding:2px">
+    <div>
+      <div style="font-size:1rem;letter-spacing:.3px">AaharaSetu</div>
+      <div style="font-size:.6rem;color:#94a3b8;font-weight:400">A Bridge to Food</div>
+    </div>
+  </div>
+  <div class="nav-links" id="nl">
+    <button class="bnav" onclick="gp('login')">Login</button>
+    <button class="bnavs" onclick="gp('register')">Register</button>
+  </div>
+</nav>
+
+<div id="app">
+
+<!-- HOME -->
+<div id="pg-home" class="page">
+  <div class="hero">
+    <div>
+      <div class="hero-pill" style="font-size:1rem;padding:8px 22px;margin-left:auto;margin-right:auto;display:block;width:fit-content"> A Bridge to Food · Government of Telangana</div>
+      <h1><span>Aahara</span>Setu</h1>
+      <p>Book time slots, see live crowd count, check real-time stock, and collect your ration without wasting time in queues.</p>
+      <button class="btn btn-blue" style="font-size:.95rem;padding:12px 30px;box-shadow:0 4px 14px rgba(37,99,235,.3)" onclick="gp('login')">Get Started →</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="pg-login" class="page hidden">
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2 id="login-title">Welcome Back</h2>
+      <p id="login-subtitle">Sign in to access your account</p>
+      <div class="rtabs">
+        <button class="rtab on" id="t-cit" onclick="setR('citizen')">👤 Citizen</button>
+        <button class="rtab" id="t-adm" onclick="setR('admin')">🔒 Admin</button>
+      </div>
+      <div id="la"></div>
+      <!-- Admin info box — shown only when admin tab is active -->
+      <div id="admin-info-box" class="hidden" style="background:#f5f3ff;border:1px solid #c4b5fd;border-radius:10px;padding:.85rem 1rem;margin-bottom:.9rem;font-size:.83rem;color:#5b21b6">
+        <div style="font-weight:700;margin-bottom:.3rem">🔒 Restricted Access</div>
+        <div style="color:#6d28d9;line-height:1.6">Admin accounts are issued by the Government of Telangana only. Self-registration is not permitted. Contact your District Collectorate if you have login issues.</div>
+      </div>
+      <div class="fg">
+        <label id="login-id-label">Email / Ration Card Number</label>
+        <input type="text" id="lid" placeholder="Email or ration card number">
+      </div>
+      <div class="fg"><label>Password</label><input type="password" id="lpw" placeholder="Enter password"></div>
+      <button class="btn btn-blue" id="login-btn" style="width:100%;padding:11px;font-size:.95rem" onclick="doLogin()">Login</button>
+      <!-- Register link — hidden when admin tab is selected -->
+      <div class="auth-link" id="register-link">Don't have an account? <a onclick="gp('register')">Register here</a></div>
+      <div style="border-top:1px solid var(--border);margin-top:1rem;padding-top:.9rem;text-align:center">
+        <button class="btn" style="width:100%;background:transparent;border:1.5px solid #6d28d9;color:#6d28d9;font-size:.82rem;font-weight:600;padding:9px" onclick="openGovtPortal()">
+          🏛️ Government Authority Portal
+        </button>
+        <div style="font-size:.7rem;color:var(--text3);margin-top:.35rem">For District Collectors & PDS Officers only</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER — Multi-step with OTP -->
+<div id="pg-register" class="page hidden">
+  <div class="auth-page">
+    <div class="auth-card" style="max-width:510px">
+      <!-- Step 1: Fill form -->
+      <div id="reg-step1">
+        <h2>Create Account</h2>
+        <p>Register with your ration card details</p>
+        <div id="ra"></div>
+        <div class="frow">
+          <div class="fg"><label>Full Name</label><input type="text" id="rn" placeholder="Full name"></div>
+          <div class="fg"><label>Age</label><input type="number" id="rage" placeholder="Age" min="1" max="120"></div>
+        </div>
+        <div class="fg"><label>Email Address</label><input type="email" id="rem" placeholder="your@email.com"></div>
+        <div class="fg"><label>Phone Number (linked to ration card)</label><input type="tel" id="rph" placeholder="10-digit mobile number"></div>
+        <div class="fg">
+          <label>District</label>
+          <select id="rdist" onchange="loadShops()">
+            <option value="">-- Select District --</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Ration Shop Code</label>
+          <select id="rshop">
+            <option value="">-- Select District First --</option>
+          </select>
+        </div>
+        <div class="fg"><label>Address</label><input type="text" id="rad" placeholder="Street address, area"></div>
+        <div class="fg"><label>Pincode</label><input type="text" id="rpin" placeholder="6-digit pincode"></div>
+        <div class="frow">
+          <div class="fg"><label>Password</label><input type="password" id="rpw" placeholder="Min 6 chars"></div>
+          <div class="fg"><label>Confirm Password</label><input type="password" id="rpw2" placeholder="Repeat password"></div>
+        </div>
+        <button class="btn btn-blue" id="send-otp-btn" style="width:100%;padding:11px" onclick="sendOTP()">Send Verification Code →</button>
+        <div class="auth-link">Already have an account? <a onclick="gp('login')">Click here to login</a></div>
+      </div>
+      <!-- Step 2: Enter OTP -->
+      <div id="reg-step2" class="hidden">
+        <h2>Verify Email</h2>
+        <p>Enter the 6-digit code sent to <b id="otp-email-display"></b></p>
+        <div id="otp-alert"></div>
+        <div class="fg" style="margin-top:1.2rem">
+          <label>Verification Code</label>
+          <input class="otp-input" type="text" id="otp-input" maxlength="6" placeholder="000000">
+          <div class="otp-timer" id="otp-timer">Code expires in: <span id="otp-countdown">2:00</span></div>
+        </div>
+        <button class="btn btn-blue" id="verify-btn" style="width:100%;padding:11px;margin-top:.5rem" onclick="verifyOTP()">Verify & Create Account</button>
+        <div style="text-align:center;margin-top:.8rem">
+          <a style="color:var(--blue);cursor:pointer;font-size:.84rem" onclick="showStep1()">← Back to form</a>
+          &nbsp;|&nbsp;
+          <a style="color:var(--text2);cursor:pointer;font-size:.84rem" onclick="sendOTP()">Resend code</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CITIZEN DASHBOARD -->
+<div id="pg-citizen" class="page hidden">
+  <div class="dl">
+    <div class="sidebar">
+      <div style="padding:.6rem 1.2rem 1rem;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:.4rem"><div style="font-size:.68rem;color:#475569;font-weight:600;letter-spacing:.06em">CITIZEN PORTAL</div></div>
+      <div class="si on" id="cn-overview"      onclick="cNav('overview')">      <span>🏠</span>Dashboard</div>
+      <div class="si"    id="cn-slot-booking"  onclick="cNav('slot-booking')">  <span>📅</span>Book a Slot</div>
+      <div class="si"    id="cn-my-tokens"     onclick="cNav('my-tokens')">     <span>🎟️</span>My Tokens</div>
+      <div class="si"    id="cn-stock"         onclick="cNav('stock')">         <span>📦</span>Stock Status</div>
+      <div class="si"    id="cn-my-details"    onclick="cNav('my-details')">    <span>👨‍👩‍👧</span>My Details</div>
+      <div class="si"    id="cn-notifications" onclick="cNav('notifications')" style="position:relative"> <span>🔔</span>Notifications<span id="sidebar-notif-badge" style="margin-left:auto;background:var(--red);color:#fff;font-size:.62rem;font-weight:700;min-width:17px;height:17px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px">0</span></div>
+      <div class="si"    id="cn-complaints"    onclick="cNav('complaints')">    <span>📝</span>Complaints</div>
+      <div class="si"    id="cn-help"          onclick="cNav('help')">          <span>❓</span>Help</div>
+    </div>
+    <div class="dc" id="cc"><div style="text-align:center;padding:3rem;color:var(--text2)">Loading...</div></div>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="pg-admin" class="page hidden">
+  <div class="dl">
+    <div class="sidebar">
+      <div style="padding:.6rem 1.2rem 1rem;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:.4rem"><div style="font-size:.68rem;color:#475569;font-weight:600;letter-spacing:.06em">ADMIN PANEL</div></div>
+      <div class="si on" id="an-overview"      onclick="aN('overview')">      <span>📊</span>Dashboard</div>
+      <div class="si"    id="an-shop-status"   onclick="aN('shop-status')">   <span>🏪</span>Shop Status</div>
+      <div class="si"    id="an-bookings"      onclick="aN('bookings')">      <span>📋</span>Bookings</div>
+      <div class="si"    id="an-serve"         onclick="aN('serve')">         <span>✅</span>Serve Ration</div>
+      <div class="si"    id="an-stock"         onclick="aN('stock')">         <span>📦</span>Stock Mgmt</div>
+      <div class="si"    id="an-beneficiaries" onclick="aN('beneficiaries')"> <span>👨‍👩‍👧</span>Beneficiaries</div>
+      <div class="si"    id="an-send-notif"    onclick="aN('send-notif')">    <span>📢</span>Notifications</div>
+      <div class="si"    id="an-reports"       onclick="aN('reports')">       <span>📈</span>Reports</div>
+    </div>
+    <div class="dc" id="ac"><div style="text-align:center;padding:3rem;color:var(--text2)">Loading...</div></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- GOVERNMENT AUTHORITY PORTAL                                -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="pg-govt" class="page hidden">
+  <div class="dl">
+    <div class="sidebar">
+      <div style="padding:.6rem 1.2rem 1rem;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:.4rem">
+        <div style="font-size:1rem;font-weight:700;color:#fff">🏛️ Govt. Authority</div>
+        <div style="font-size:.73rem;color:#94a3b8;margin-top:.1rem">Telangana PDS — Monitoring</div>
+      </div>
+      <div class="si on" id="gn-dashboard"    onclick="gNav('dashboard')">   <span>📊</span>Dashboard</div>
+      <div class="si"    id="gn-complaints"   onclick="gNav('complaints')">  <span>📝</span>All Complaints</div>
+      <div class="si"    id="gn-shops"        onclick="gNav('shops')">       <span>🏪</span>Shop Overview</div>
+      <div class="si"    id="gn-ratings"      onclick="gNav('ratings')">     <span>⭐</span>Shop Ratings</div>
+      <div style="margin-top:auto;padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,.07)">
+        <button class="btn" style="width:100%;background:transparent;border:1px solid rgba(255,255,255,.15);color:#94a3b8;font-size:.8rem" onclick="govtLogout()">← Back to Login</button>
+      </div>
+    </div>
+    <div class="dc" id="gc" style="padding:1.5rem;overflow-y:auto"><div style="text-align:center;padding:3rem;color:var(--text2)">Loading...</div></div>
+  </div>
+</div>
+</div>
+
+<script src="http://localhost:5555/socket.io/socket.io.js"></script>
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const API = 'http://localhost:5555/api';
+const BACKEND = 'http://localhost:5555';
+
+// ============================================================
+// STATE
+// ============================================================
+let STATE = { user: null, lr: 'citizen', token: null, socket: null };
+let OTP_TIMER = null;
+let POLL_INTERVAL = null; // polling fallback
+window._sd = ''; window._ss = null; // slot booking state
+
+// ============================================================
+// SOCKET.IO — Real-time updates from backend
+// ============================================================
+// ── Notification badge functions ──
+function updateNotifBadge(count) {
+  const badge = document.getElementById('notif-badge');
+  if (badge) {
+    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.remove('hidden'); }
+    else { badge.classList.add('hidden'); }
+  }
+  const sb = document.getElementById('sidebar-notif-badge');
+  if (sb) {
+    if (count > 0) { sb.textContent = count > 99 ? '99+' : count; sb.style.display = 'flex'; }
+    else { sb.style.display = 'none'; }
+  }
+  document.querySelectorAll('[data-live="unread-count"]').forEach(el => { el.textContent = count; });
+}
+
+async function fetchNotifCount() {
+  if (!STATE.user || STATE.user.role !== 'citizen') return;
+  try {
+    const data = await api('GET', '/citizen/notifications/unread-count');
+    updateNotifBadge(data.count);
+  } catch(e) {}
+}
+
+let NOTIF_POLL = null;
+function startNotifPoll() {
+  if (NOTIF_POLL) clearInterval(NOTIF_POLL);
+  NOTIF_POLL = setInterval(() => {
+    if (STATE.user && STATE.user.role === 'citizen') fetchNotifCount();
+  }, 30000);
+}
+function stopNotifPoll() {
+  if (NOTIF_POLL) { clearInterval(NOTIF_POLL); NOTIF_POLL = null; }
+}
+
+// ── Auto-expire missed tokens (called on admin nav) ──
+async function triggerExpireCheck() {
+  try { await api('PATCH', '/slots/expire'); } catch(e) {}
+}
+
+function initSocket(shopId) {
+  // Disconnect previous socket if any
+  if (STATE.socket) { STATE.socket.disconnect(); STATE.socket = null; }
+  if (!shopId) return;
+
+  try {
+    const socket = io(BACKEND, { transports: ['websocket', 'polling'] });
+    STATE.socket = socket;
+
+    socket.on('connect', () => {
+      socket.emit('join-shop', shopId);
+      if (STATE.user && STATE.user.role === 'citizen') { fetchNotifCount(); startNotifPoll(); }
+    });
+
+    socket.on('connect_error', () => {
+      startPolling(shopId);
+    });
+
+    // ── Shop open/closed changed by admin ──
+    socket.on('shop-update', (data) => {
+      const cc = document.getElementById('cc');
+      if (cc && STATE.user?.role === 'citizen') {
+        updateShopStatusUI(data);
+        showLiveBanner(`🏪 Shop is now ${data.is_open ? 'OPEN 🟢' : 'CLOSED 🔴'}`, data.is_open ? 'success' : 'warning');
+      }
+    });
+
+    // ── Crowd count changed (token served) ──
+    socket.on('crowd-update', (data) => {
+      updateCrowdUI(data);
+    });
+
+    // ── Stock updated by admin ──
+    socket.on('stock-update', (data) => {
+      updateStockUI(data.stock);
+    });
+
+    // ── New notification pushed ──
+    socket.on('notification', (data) => {
+      // Only show if it's for this citizen or broadcast (no user_id)
+      if (!data.user_id || data.user_id === STATE.user?.id) {
+        showLiveBanner(`🔔 ${data.message}`, 'info');
+        fetchNotifCount();
+        // Refresh notifications panel if open
+        const notifEl = document.getElementById('cn-notifications');
+        const cc = document.getElementById('cc');
+        if (notifEl && notifEl.classList.contains('on') && cc) rNotifs(cc);
+      }
+    });
+
+    // ── Admin updated this citizen's family members ──
+    socket.on('family-updated', (data) => {
+      if (STATE.user && data.user_id === STATE.user.id) {
+        showLiveBanner('👨‍👩‍👧 Your family details were updated.', 'info');
+        const detEl = document.getElementById('cn-my-details');
+        const cc    = document.getElementById('cc');
+        if (detEl && detEl.classList.contains('on') && cc) rDet(cc);
+      }
+    });
+
+    // ── citizen-served: admin marked this citizen's token as served ──
+    // Crowd count already reduced by backend. Show notification.
+    socket.on('citizen-served', (data) => {
+      if (STATE.user && data.user_id === STATE.user.id) {
+        showLiveBanner('✅ Your ration has been collected! Token ' + data.token_number, 'success');
+        fetchNotifCount();
+        // Refresh overview if it's active
+        const ov = document.getElementById('cn-overview');
+        const cc = document.getElementById('cc');
+        if (ov && ov.classList.contains('on') && cc) rOvr(cc);
+      }
+    });
+
+    // ── tokens-expired: slot time passed, auto-expired by server ──
+    socket.on('tokens-expired', (data) => {
+      // Refresh dashboard so citizen sees "Missed ⚠️ Re-book now" state
+      fetchNotifCount();
+      showLiveBanner('⚠️ Your slot time has passed. Token expired — you can book a new slot now.', 'warning');
+      const ov = document.getElementById('cn-overview');
+      const cc = document.getElementById('cc');
+      if (ov && ov.classList.contains('on') && cc) rOvr(cc);
+    });
+
+    socket.on('disconnect', () => {});
+  } catch(e) {
+    startPolling(shopId);
+  }
+}
+// ── Admin real-time socket ──
+function initAdminSocket(shopId) {
+  if (STATE.socket) { STATE.socket.disconnect(); STATE.socket = null; }
+  if (!shopId) return;
+  try {
+    const socket = io(BACKEND, { transports: ['websocket','polling'] });
+    STATE.socket = socket;
+
+    socket.on('connect', () => {
+      socket.emit('join-shop', shopId);
+    });
+
+    // Citizen booked a new slot → refresh queue + stats
+    socket.on('new-booking', () => {
+      const ac = document.getElementById('ac');
+      const activeSection = document.querySelector('#pg-admin .si.on');
+      if (activeSection?.id === 'an-overview' && ac) rAdmOvr(ac);
+      if (activeSection?.id === 'an-serve'    && ac) rServe(ac);
+      if (activeSection?.id === 'an-bookings' && ac) rBkgs(ac);
+    });
+
+    // Token served → refresh dashboard stats + serve queue
+    socket.on('booking-served', () => {
+      const ac = document.getElementById('ac');
+      const activeSection = document.querySelector('#pg-admin .si.on');
+      if (activeSection?.id === 'an-overview'   && ac) rAdmOvr(ac);
+      if (activeSection?.id === 'an-serve'      && ac) rServe(ac);
+      if (activeSection?.id === 'an-bookings'   && ac) rBkgs(ac);
+    });
+
+    // Crowd count changed
+    socket.on('crowd-update', (data) => {
+      // Update any crowd numbers visible in admin dashboard
+      const cnt = data.waiting ?? data.crowd_count ?? 0;
+      document.querySelectorAll('[data-live="crowd-waiting"]').forEach(el => {
+        el.textContent = cnt;
+      });
+      document.querySelectorAll('[data-live="crowd-bar"]').forEach(el => {
+        el.style.width = Math.min(data.pct || 0, 100) + '%';
+      });
+      document.querySelectorAll('[data-live="crowd-badge"]').forEach(el => {
+        el.textContent = (data.level || 'low').toUpperCase();
+        el.className = 'bdg ' + (data.level==='high'?'bgr':data.level==='medium'?'bga':'bgg');
+      });
+      document.querySelectorAll('[data-live="crowd-msg"]').forEach(el => {
+        el.textContent = data.message || '';
+      });
+    });
+
+    // Stock updated
+    socket.on('stock-update', () => {
+      const ac = document.getElementById('ac');
+      const activeSection = document.querySelector('#pg-admin .si.on');
+      if (activeSection?.id === 'an-stock' && ac) rAStk(ac);
+    });
+
+    // Family member changed by admin from another session
+    socket.on('family-updated', () => {
+      const ac = document.getElementById('ac');
+      const activeSection = document.querySelector('#pg-admin .si.on');
+      if (activeSection?.id === 'an-beneficiaries' && ac) rBen(ac);
+    });
+
+    socket.on('disconnect', () => {});
+    socket.on('connect_error', () => { startAdminPolling(shopId); });
+  } catch(e) {
+    startAdminPolling(shopId);
+  }
+}
+
+// ── Admin polling fallback if socket unavailable ──
+function startAdminPolling(shopId) {
+  if (POLL_INTERVAL) clearInterval(POLL_INTERVAL);
+  POLL_INTERVAL = setInterval(async () => {
+    if (!STATE.user || STATE.user.role !== 'admin') { clearInterval(POLL_INTERVAL); return; }
+    try {
+      const ac = document.getElementById('ac');
+      const activeSection = document.querySelector('#pg-admin .si.on');
+      if (activeSection?.id === 'an-overview' && ac) rAdmOvr(ac);
+      if (activeSection?.id === 'an-serve'    && ac) rServe(ac);
+    } catch(e) {}
+  }, 8000);
+}
+// ── Polling fallback (every 5 seconds) if Socket.IO unavailable ──
+function startPolling(shopId) {
+  if (POLL_INTERVAL) clearInterval(POLL_INTERVAL);
+  POLL_INTERVAL = setInterval(async () => {
+    if (!STATE.user || STATE.user.role !== 'citizen') { clearInterval(POLL_INTERVAL); return; }
+    try {
+      const d = await api('GET', '/citizen/dashboard');
+      updateCrowdUI(d.crowd);
+      if (d.shop) updateShopStatusUI(d.shop);
+    } catch(e) { /* silent */ }
+  }, 5555);
+
+}
+
+// ── Live update helpers — update DOM without full re-render ──
+function updateCrowdUI(crowd) {
+  if (!crowd) return;
+  const col = crowd.level==='high'?'var(--red)':crowd.level==='medium'?'var(--amber)':'var(--green)';
+  // Update crowd number in any visible element
+  document.querySelectorAll('[data-live="crowd-waiting"]').forEach(el => { el.textContent = crowd.waiting; el.style.color = col; });
+  document.querySelectorAll('[data-live="crowd-msg"]').forEach(el => el.textContent = crowd.message||'');
+  document.querySelectorAll('[data-live="crowd-bar"]').forEach(el => {
+    el.style.width = Math.min(crowd.pct !== undefined ? crowd.pct : (crowd.waiting ? Math.min(crowd.waiting/20*100,100) : 0), 100) + '%';
+    el.style.background = col;
+  });
+  document.querySelectorAll('[data-live="crowd-badge"]').forEach(el => {
+    el.textContent = (crowd.level||'low').toUpperCase();
+    el.className = 'bdg ' + (crowd.level==='high'?'bgr':crowd.level==='medium'?'bga':'bgg');
+  });
+}
+
+function updateShopStatusUI(shop) {
+  if (!shop) return;
+  const isOpen = shop.is_open === 1 || shop.is_open === true;
+  document.querySelectorAll('[data-live="shop-status-text"]').forEach(el => { el.textContent = isOpen ? 'OPEN' : 'CLOSED'; });
+  document.querySelectorAll('[data-live="shop-status-badge"]').forEach(el => {
+    el.textContent = isOpen ? '● OPEN' : '● CLOSED';
+    el.className = 'bdg ' + (isOpen ? 'bgg' : 'bgr');
+  });
+  document.querySelectorAll('[data-live="shop-hours"]').forEach(el => {
+    el.textContent = isOpen ? `Open ${shop.open_time||'09:00'} - ${shop.close_time||'18:00'}` : 'Closed today.';
+  });
+}
+
+function updateStockUI(stock) {
+  if (!stock || !stock.length) return;
+  // Only update if stock page is currently visible
+  const stockEl = document.getElementById('cn-stock');
+  if (stockEl?.classList.contains('on')) {
+    const cc = document.getElementById('cc');
+    if (cc) rStock(cc);
+  }
+}
+
+// ── Live banner notification ──
+function showLiveBanner(msg, type='info') {
+  const existing = document.getElementById('live-banner');
+  if (existing) existing.remove();
+  const banner = document.createElement('div');
+  banner.id = 'live-banner';
+  const bg = type==='success'?'#f0fdf4':type==='warning'?'#fef3c7':'#eff6ff';
+  const bc = type==='success'?'#bbf7d0':type==='warning'?'#fde68a':'#bfdbfe';
+  const tc = type==='success'?'#15803d':type==='warning'?'#d97706':'#1d4ed8';
+  banner.style.cssText = `position:fixed;top:70px;right:1.5rem;z-index:9999;background:${bg};border:1px solid ${bc};color:${tc};padding:.75rem 1.2rem;border-radius:10px;font-size:.85rem;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,.12);max-width:360px;animation:slideIn .3s ease`;
+  banner.innerHTML = msg + ' <span style="cursor:pointer;float:right;margin-left:.8rem" onclick="this.parentElement.remove()">✕</span>';
+  document.body.appendChild(banner);
+  setTimeout(() => { if (banner.parentElement) banner.remove(); }, 6000);
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function pad(n){ return n<10?'0'+n:''+n; }
+function todayStr(){
+  // Use IST date so the date picker matches the server timezone
+  const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+}
+// Format a slot_date safely — MySQL DATE may arrive as ISO string or Date object
+function fmtDate(v){
+  if(!v) return '—';
+  // Extract YYYY-MM-DD portion regardless of input format
+  const s = typeof v === 'string' ? v : v instanceof Date ? v.toISOString() : String(v);
+  const m = s.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(!m) return s;
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${parseInt(m[3])} ${months[parseInt(m[2])-1]} ${m[1]}`;
+}
+function getToken(){ return STATE.token || localStorage.getItem('r_token'); }
+function setToken(t){ STATE.token = t; localStorage.setItem('r_token', t); }
+function clearToken(){ STATE.token = null; localStorage.removeItem('r_token'); localStorage.removeItem('r_user'); }
+
+async function api(method, path, body, auth=true){
+  const headers = { 'Content-Type': 'application/json' };
+  if(auth){ const t = getToken(); if(t) headers['Authorization'] = 'Bearer ' + t; }
+  const opts = { method, headers };
+  if(body) opts.body = JSON.stringify(body);
+  const res = await fetch(API + path, opts);
+  const data = await res.json();
+  if(!res.ok) throw new Error(data.message || 'Request failed');
+  return data;
+}
+
+function loading(el, msg='Loading...'){
+  if(el) el.innerHTML = `<div style="text-align:center;padding:2.5rem;color:var(--text2)"><div class="spin" style="border-color:var(--blue);border-top-color:transparent;width:24px;height:24px;display:inline-block;margin-bottom:.5rem"></div><br>${msg}</div>`;
+}
+
+// ============================================================
+// ROUTING
+// ============================================================
+function gp(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));
+  document.getElementById('pg-'+p).classList.remove('hidden');
+  updNav(p);
+  // When going to login page, always reset to citizen tab
+  // so the Register link and form are visible by default
+  if(p === 'login'){
+    STATE.lr = 'citizen';
+    const tCit = document.getElementById('t-cit');
+    const tAdm = document.getElementById('t-adm');
+    if(tCit) tCit.classList.add('on');
+    if(tAdm) tAdm.classList.remove('on');
+    const regLink   = document.getElementById('register-link');
+    const adminInfo = document.getElementById('admin-info-box');
+    const loginTitle= document.getElementById('login-title');
+    const loginSub  = document.getElementById('login-subtitle');
+    const lidLabel  = document.getElementById('login-id-label');
+    const lidInput  = document.getElementById('lid');
+    if(regLink)    regLink.classList.remove('hidden');
+    if(adminInfo)  adminInfo.classList.add('hidden');
+    if(loginTitle) loginTitle.textContent = 'Welcome Back';
+    if(loginSub)   loginSub.textContent = 'Sign in to access your account';
+    if(lidLabel)   lidLabel.textContent = 'Email / Ration Card Number';
+    if(lidInput)   lidInput.placeholder = 'Email or ration card number';
+    const la = document.getElementById('la');
+    if(la) la.innerHTML = '';
+  }
+}
+
+function updNav(p){
+  const nl = document.getElementById('nl');
+  if(p==='citizen'){
+    const u = STATE.user;
+    nl.innerHTML = `<button class="bnav" onclick="cNav('notifications')" style="position:relative" id="notif-bell-btn">🔔 Alerts<span id="notif-badge" class="notif-badge hidden"></span></button>
+    <div class="pm">
+      <div class="pb" onclick="tDD()">
+        <div style="width:27px;height:27px;border-radius:50%;background:var(--blue2);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#fff;font-weight:700">${u?.name?.[0]||'U'}</div>
+        <span>${u?.name?.split(' ')[0]||'User'}</span> ▾
+      </div>
+      <div class="pdd" id="pdd">
+        <div style="padding:.55rem 1rem;border-bottom:1px solid var(--border);font-size:.78rem;color:var(--text2)">${u?.email||''}</div>
+        <div class="pdi" onclick="cNav('my-details')">📋 My Details</div>
+        <div class="pdi d" onclick="logout()">↪ Logout</div>
+      </div>
+    </div>`;
+  } else if(p==='admin'){
+    nl.innerHTML = `<div class="pm">
+      <div class="pb" onclick="tDD()">
+        <div style="width:27px;height:27px;border-radius:50%;background:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#fff;font-weight:700">A</div>
+        <span>Admin</span> ▾
+      </div>
+      <div class="pdd" id="pdd"><div class="pdi d" onclick="logout()">↪ Logout</div></div>
+    </div>`;
+  } else {
+    // Home or register — always show Login + Register buttons
+    // Also reset login role back to citizen when leaving login page
+    STATE.lr = 'citizen';
+    nl.innerHTML = `<button class="bnav" onclick="gp('login')">Login</button><button class="bnavs" onclick="gp('register')">Register</button>`;
+  }
+}
+
+function tDD(){ const d=document.getElementById('pdd'); if(d) d.classList.toggle('op'); }
+document.addEventListener('click', e=>{ const d=document.getElementById('pdd'); if(d&&!e.target.closest('.pm')) d.classList.remove('op'); });
+
+function setR(r){
+  STATE.lr = r;
+  document.getElementById('t-cit').classList.toggle('on', r==='citizen');
+  document.getElementById('t-adm').classList.toggle('on', r==='admin');
+
+  // When Admin tab is selected:
+  // - Hide "Register here" link (admins cannot self-register)
+  // - Show admin credentials info box
+  // - Hide the navbar Register button
+  const regLink     = document.getElementById('register-link');
+  const adminInfo   = document.getElementById('admin-info-box');
+  const loginTitle  = document.getElementById('login-title');
+  const loginSub    = document.getElementById('login-subtitle');
+  const lidLabel    = document.getElementById('login-id-label');
+  const lidInput    = document.getElementById('lid');
+
+  if(r === 'admin'){
+    if(regLink)   regLink.classList.add('hidden');
+    if(adminInfo) adminInfo.classList.remove('hidden');
+    if(loginTitle) loginTitle.textContent = 'Admin Login';
+    if(loginSub)  loginSub.textContent = 'Restricted access — Government officials only';
+    if(lidLabel)  lidLabel.textContent = 'Admin Email';
+    if(lidInput)  lidInput.placeholder = 'admin@ration.gov.in';
+    // Hide navbar Register button while on admin tab
+    const nl = document.getElementById('nl');
+    if(nl) nl.innerHTML = `<button class="bnav" onclick="gp('login')">← Back to Home</button>`;
+  } else {
+    if(regLink)   regLink.classList.remove('hidden');
+    if(adminInfo) adminInfo.classList.add('hidden');
+    if(loginTitle) loginTitle.textContent = 'Welcome Back';
+    if(loginSub)  loginSub.textContent = 'Sign in to access your account';
+    if(lidLabel)  lidLabel.textContent = 'Email / Ration Card Number';
+    if(lidInput)  lidInput.placeholder = 'Email or ration card number';
+    // Restore navbar
+    const nl = document.getElementById('nl');
+    if(nl) nl.innerHTML = `<button class="bnav" onclick="gp('login')">Login</button><button class="bnavs" onclick="gp('register')">Register</button>`;
+  }
+}
+
+// ============================================================
+// AUTH: LOGIN
+// ============================================================
+async function doLogin(){
+  const id  = document.getElementById('lid').value.trim();
+  const pw  = document.getElementById('lpw').value;
+  const al  = document.getElementById('la');
+  const btn = document.getElementById('login-btn');
+  al.innerHTML = '';
+  if(!id||!pw){ al.innerHTML='<div class="alert alert-e">Please fill in all fields.</div>'; return; }
+  btn.innerHTML = '<span class="spin"></span>Logging in...'; btn.disabled = true;
+  try {
+    const data = await api('POST','/auth/login',{ identifier:id, password:pw, role:STATE.lr }, false);
+    setToken(data.token);
+    STATE.user = data.user;
+    // ── CRITICAL: save user with role so refresh restores correct dashboard ──
+    localStorage.setItem('r_user', JSON.stringify(data.user));
+    localStorage.setItem('r_role', data.user.role); // extra safety key
+    if(data.user.role==='citizen') fetchNotifCount();
+    if(data.user.role==='admin'){
+      gp('admin');
+      aN('overview');
+      initAdminSocket(data.user.shop_id);
+    } else {
+      gp('citizen');
+      cNav('overview');
+      // Start real-time updates for this citizen's shop
+      initSocket(data.user.shop_id);
+    }
+  } catch(err){
+    // Give specific error for connection refused
+    const msg = err.message.includes('fetch') || err.message.includes('Failed')
+      ? '❌ Cannot connect to backend server. Make sure the backend is running on port 5000.<br><small>Run: <code>cd backend && npm run dev</code></small>'
+      : err.message;
+    al.innerHTML = `<div class="alert alert-e">${msg}</div>`;
+  } finally {
+    btn.innerHTML = 'Login'; btn.disabled = false;
+  }
+}
+
+// ============================================================
+// AUTH: REGISTER — Load districts on page open
+// ============================================================
+async function loadDistricts(){
+  try {
+    const data = await api('GET','/auth/districts', null, false);
+    const sel  = document.getElementById('rdist');
+    sel.innerHTML = '<option value="">-- Select District --</option>';
+    data.districts.forEach(d=>{
+      sel.innerHTML += `<option value="${d.id}">${d.name}</option>`;
+    });
+  } catch(e){ console.error('Districts load error:', e); }
+}
+
+async function loadShops(){
+  const distId = document.getElementById('rdist').value;
+  const sel    = document.getElementById('rshop');
+  sel.innerHTML = '<option value="">-- Loading shops... --</option>';
+  if(!distId){ sel.innerHTML='<option value="">-- Select District First --</option>'; return; }
+  try {
+    const data = await api('GET', `/auth/shops?district_id=${distId}`, null, false);
+    sel.innerHTML = '<option value="">-- Select Ration Shop --</option>';
+    data.shops.forEach(s=>{
+      sel.innerHTML += `<option value="${s.id}">${s.shop_code} — ${s.shop_name}</option>`;
+    });
+  } catch(e){ sel.innerHTML='<option value="">Error loading shops</option>'; }
+}
+
+// ── Send OTP (Step 1 of registration) ──
+async function sendOTP(){
+  const al   = document.getElementById('ra');
+  const btn  = document.getElementById('send-otp-btn');
+  const name = document.getElementById('rn').value.trim();
+  const age  = document.getElementById('rage').value;
+  const em   = document.getElementById('rem').value.trim();
+  const ph   = document.getElementById('rph').value.trim();
+  const dist = document.getElementById('rdist').value;
+  const shop = document.getElementById('rshop').value;
+  const ad   = document.getElementById('rad').value.trim();
+  const pin  = document.getElementById('rpin').value.trim();
+  const pw   = document.getElementById('rpw').value;
+  const pw2  = document.getElementById('rpw2').value;
+
+  al.innerHTML='';
+  if(!name||!age||!em||!ph||!dist||!shop||!ad||!pin||!pw){
+    al.innerHTML='<div class="alert alert-e">Please fill in all fields.</div>'; return;
+  }
+  if(pw!==pw2){ al.innerHTML='<div class="alert alert-e">Passwords do not match.</div>'; return; }
+  if(pw.length<6){ al.innerHTML='<div class="alert alert-e">Password must be at least 6 characters.</div>'; return; }
+  if(!/^[0-9]{10}$/.test(ph)){ al.innerHTML='<div class="alert alert-e">Phone number must be exactly 10 digits.</div>'; return; }
+
+  btn.innerHTML='<span class="spin"></span>Sending code...'; btn.disabled=true;
+  try {
+    const data = await api('POST','/auth/send-otp',{
+      name, email:em, phone:ph, shop_id:parseInt(shop),
+      district_id:parseInt(dist), age:parseInt(age),
+      address:ad, pincode:pin, password:pw
+    }, false);
+
+    // Move to step 2
+    document.getElementById('otp-email-display').textContent = em;
+    document.getElementById('reg-step1').classList.add('hidden');
+    document.getElementById('reg-step2').classList.remove('hidden');
+    al.innerHTML='';
+    startOTPTimer();
+  } catch(err){
+    al.innerHTML=`<div class="alert alert-e">${err.message}</div>`;
+  } finally {
+    btn.innerHTML='Send Verification Code →'; btn.disabled=false;
+  }
+}
+
+// ── OTP countdown timer ──
+function startOTPTimer(){
+  if(OTP_TIMER) clearInterval(OTP_TIMER);
+  let sec = 120;
+  const cd = document.getElementById('otp-countdown');
+  OTP_TIMER = setInterval(()=>{
+    sec--;
+    const m = Math.floor(sec/60);
+    const s = sec%60;
+    if(cd) cd.textContent = `${m}:${pad(s)}`;
+    if(sec<=0){
+      clearInterval(OTP_TIMER);
+      if(cd) cd.parentElement.textContent = 'Code expired. Please request a new one.';
+    }
+  },1000);
+}
+
+function showStep1(){
+  document.getElementById('reg-step2').classList.add('hidden');
+  document.getElementById('reg-step1').classList.remove('hidden');
+  if(OTP_TIMER) clearInterval(OTP_TIMER);
+}
+
+// ── Verify OTP (Step 2) ──
+async function verifyOTP(){
+  const al   = document.getElementById('otp-alert');
+  const btn  = document.getElementById('verify-btn');
+  const otp  = document.getElementById('otp-input').value.trim();
+  const em   = document.getElementById('rem').value.trim();
+  const ph   = document.getElementById('rph').value.trim();
+  const shop = document.getElementById('rshop').value;
+  const dist = document.getElementById('rdist').value;
+  const ad   = document.getElementById('rad').value.trim();
+  const pin  = document.getElementById('rpin').value.trim();
+  const pw   = document.getElementById('rpw').value;
+  const name = document.getElementById('rn').value.trim();
+  const age  = document.getElementById('rage').value;
+
+  al.innerHTML='';
+  if(!otp||otp.length!==6){ al.innerHTML='<div class="alert alert-e">Please enter the 6-digit code.</div>'; return; }
+
+  btn.innerHTML='<span class="spin"></span>Verifying...'; btn.disabled=true;
+  try {
+    const data = await api('POST','/auth/verify-otp',{
+      name, email:em, phone:ph, shop_id:parseInt(shop),
+      district_id:parseInt(dist), age:parseInt(age),
+      address:ad, pincode:pin, password:pw, otp
+    }, false);
+
+    if(OTP_TIMER) clearInterval(OTP_TIMER);
+    setToken(data.token);
+    STATE.user = data.user;
+    localStorage.setItem('r_user', JSON.stringify(data.user));
+    localStorage.setItem('r_role', 'citizen');
+    al.innerHTML='<div class="alert alert-s">✅ Registration successful! Welcome to the Ration Portal.</div>';
+    setTimeout(()=>{
+      gp('citizen');
+      cNav('overview');
+      fetchNotifCount();
+      startNotifPoll();
+      initSocket(data.user.shop_id);
+    }, 1500);
+  } catch(err){
+    al.innerHTML=`<div class="alert alert-e">${err.message}</div>`;
+  } finally {
+    btn.innerHTML='Verify & Create Account'; btn.disabled=false;
+  }
+}
+
+function logout(){
+  // Disconnect real-time updates
+  if(STATE.socket){ STATE.socket.disconnect(); STATE.socket = null; }
+  if(POLL_INTERVAL){ clearInterval(POLL_INTERVAL); POLL_INTERVAL = null; }
+  stopNotifPoll();
+  clearToken();
+  localStorage.removeItem('r_role');
+  STATE.user = null;
+  gp('home');
+}
+
+// ============================================================
+// CITIZEN NAVIGATION
+// ============================================================
+function cNav(sec){
+  document.querySelectorAll('#pg-citizen .si').forEach(x=>x.classList.remove('on'));
+  const el=document.getElementById('cn-'+sec); if(el) el.classList.add('on');
+  const cc = document.getElementById('cc');
+  const map = {
+    'overview':      ()=>rOvr(cc),
+    'slot-booking':  ()=>rSlot(cc),
+    'my-tokens':     ()=>rTok(cc),
+    'stock':         ()=>rStock(cc),
+    'my-details':    ()=>rDet(cc),
+    'notifications': ()=>rNotifs(cc),
+    'complaints':    ()=>rComp(cc),
+    'help':          ()=>rHelp(cc),
+  };
+  if(map[sec]) map[sec]();
+}
+
+// ── Citizen: Dashboard ──
+async function rOvr(cc){
+  loading(cc,'Loading dashboard...');
+  try {
+    const d = await api('GET','/citizen/dashboard');
+    const h = new Date().getHours();
+    const gr = h<12?'Morning':h<17?'Afternoon':'Evening';
+    const c  = d.crowd;
+    const col = c.level==='high'?'var(--red)':c.level==='medium'?'var(--amber)':'var(--green)';
+    const cbdg = c.level==='high'?'bgr':c.level==='medium'?'bga':'bgg';
+    // "I'm at shop" button state
+    const checkedIn = d.checked_in_today === true;
+    const alreadyServed = d.this_month_status === 'served';
+
+    // If ration already served but still showing as checked-in → auto checkout silently
+    if (checkedIn && alreadyServed) {
+      api('POST', '/citizen/crowd/checkout').catch(()=>{});
+    }
+
+    // Show appropriate button state
+    const checkinBtnHtml = (checkedIn && !alreadyServed)
+      ? `<button class="btn" style="width:100%;padding:10px;background:#dcfce7;border:1.5px solid #16a34a;color:#15803d;border-radius:9px;font-size:.84rem;font-weight:600;cursor:default" disabled>
+           ✅ You are marked as present at shop today
+         </button>
+         <button class="btn" style="width:100%;padding:8px;margin-top:.5rem;background:#fef2f2;border:1.5px solid #fca5a5;color:#dc2626;border-radius:9px;font-size:.8rem;font-weight:600" id="checkout-btn" onclick="doCheckout()">
+           🚪 I Am Leaving The Shop
+         </button>`
+      : alreadyServed
+      ? `<button class="btn" style="width:100%;padding:10px;background:#f0fdf4;border:1.5px solid #86efac;color:#15803d;border-radius:9px;font-size:.84rem;font-weight:600;cursor:default" disabled>
+           ✅ Ration collected — visit complete
+         </button>`
+      : `<button class="btn btn-blue" id="checkin-btn" style="width:100%;padding:10px;border-radius:9px;font-size:.84rem;font-weight:600" onclick="doCheckin()">
+           🏪 I Am At The Shop Now
+         </button>`;
+    cc.innerHTML = `
+    <div class="shdr"><div><h2>Good ${gr}, ${STATE.user?.name?.split(' ')[0]}! 👋</h2><p>${d.shop?.shop_name||''} · ${d.shop?.shop_code||''}</p></div></div>
+    <div class="g2" style="margin-bottom:1.2rem">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:.6rem">
+          <div class="ct" style="margin:0">Shop Status</div>
+          <span class="bdg ${d.shop?.is_open?'bgg':'bgr'}" data-live="shop-status-badge">${d.shop?.is_open?'● OPEN':'● CLOSED'}</span>
+        </div>
+        <div style="font-size:2rem;margin:.4rem 0">${d.shop?.is_open?'🟢':'🔴'}</div>
+        <div style="color:var(--text2);font-size:.82rem" data-live="shop-hours">${d.shop?.is_open?`Open ${d.shop.open_time||'09:00'} - ${d.shop.close_time||'18:00'}`:'Closed today.'}</div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:.5rem">
+          <div class="ct" style="margin:0">People at Shop Now</div>
+          <span class="bdg ${cbdg}" data-live="crowd-badge">${c.level.toUpperCase()}</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:.5rem;margin:.2rem 0 .15rem">
+          <div style="font-size:3rem;font-weight:700;color:${col}" data-live="crowd-waiting">${c.waiting}</div>
+          <div style="font-size:.85rem;color:var(--text2);line-height:1.3">people<br>physically here</div>
+        </div>
+        <div style="height:7px;background:#e2e8f0;border-radius:4px;overflow:hidden;margin:.5rem 0 .35rem">
+          <div style="height:100%;width:${Math.min(c.pct||0,100)}%;background:${col};border-radius:4px;transition:width .4s" data-live="crowd-bar"></div>
+        </div>
+        <div style="font-size:.78rem;color:var(--text2)" data-live="crowd-msg">${c.message}</div>
+        <div style="font-size:.7rem;color:var(--text3);margin-top:.4rem">⟳ updates live when people check in or get served</div>
+        <div style="margin-top:.7rem">${checkinBtnHtml}</div>
+        <div id="checkin-msg" style="margin-top:.4rem;font-size:.78rem;text-align:center"></div>
+      </div>
+    </div>
+    <div class="g4" style="margin-bottom:1.2rem">
+      <div class="sc"><div class="sl">My Active Token</div>${d.active_token?`<div class="sv" style="font-size:1.05rem;color:var(--blue)">${d.active_token.token_number}</div><div class="ss">${d.active_token.slot_label}</div>`:`<div class="sv" style="font-size:.9rem;color:var(--text2)">${d.this_month_status==='served'?'Collected ✅':d.this_month_status==='expired'?'Missed ⚠️':'None'}</div><div class="ss">${d.this_month_status==='served'?'Ration collected this month':d.this_month_status==='expired'?'<a onclick="cNav(\'slot-booking\')" style="color:var(--amber);cursor:pointer">Re-book now →</a>':('<a onclick="cNav(\'slot-booking\')" style="color:var(--blue);cursor:pointer">Book a slot</a>')}</div>`}</div>
+      <div class="sc"><div class="sl">At Shop Now</div><div class="sv" style="color:${col}" data-live="crowd-waiting">${c.waiting}</div><div class="ss">people here</div></div>
+      <div class="sc"><div class="sl">Served Today</div><div class="sv" style="color:var(--green)">${d.crowd?.served||0}</div><div class="ss">tokens done</div></div>
+      <div class="sc"><div class="sl">Unread Alerts</div><div class="sv" data-live="unread-count">${d.unread_count}</div><div class="ss">notifications</div></div>
+    </div>
+    <h3 style="font-size:.88rem;color:var(--text2);margin-bottom:.7rem;font-weight:600">QUICK ACTIONS</h3>
+    <div class="g4" style="margin-bottom:1.2rem">
+      <button class="btn btn-ob" style="padding:.88rem;display:flex;flex-direction:column;align-items:center;gap:.3rem;font-size:.8rem;border-radius:10px" onclick="cNav('slot-booking')">📅<span>Book Slot</span></button>
+      <button class="btn btn-ob" style="padding:.88rem;display:flex;flex-direction:column;align-items:center;gap:.3rem;font-size:.8rem;border-radius:10px" onclick="cNav('my-tokens')">🎟️<span>My Tokens</span></button>
+      <button class="btn btn-ob" style="padding:.88rem;display:flex;flex-direction:column;align-items:center;gap:.3rem;font-size:.8rem;border-radius:10px" onclick="cNav('stock')">📦<span>Stock</span></button>
+      <button class="btn btn-ob" style="padding:.88rem;display:flex;flex-direction:column;align-items:center;gap:.3rem;font-size:.8rem;border-radius:10px" onclick="cNav('complaints')">📝<span>Complaints</span></button>
+    </div>
+    <div class="card"><div class="ct">Recent Notifications</div>
+    <div class="card" style="margin-bottom:1.2rem">
+      <div class="ct">📦 Your Ration Entitlement</div>
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:.75rem 1rem;font-size:.83rem;color:#15803d">
+        <b>${STATE.user?.card_type||'BPL'} Card</b>${STATE.user?.card_type==='AAY'?' · All 7 items · 2× base quantity':STATE.user?.card_type==='APL'?' · 4 items (Rice, Wheat, Sugar, Oil) · 1× base':' · 6 items (Rice, Wheat, Dal, Sugar, Oil, Salt) · 1.5× base'}
+      </div>
+      <div style="font-size:.78rem;color:var(--text2);margin-top:.4rem">Rice: 5kg/person · Family size determines total · <b>APL=1×, BPL=1.5×, AAY=2×</b></div>
+    </div>
+    ${d.unread_count>0?`<div class="ibox" style="margin-bottom:.8rem">You have ${d.unread_count} unread notification${d.unread_count>1?'s':''}. <a onclick="cNav('notifications')" style="font-weight:600;cursor:pointer">View all →</a></div>`:''}
+    <button class="btn btn-ghost btn-sm" style="margin-top:.4rem" onclick="cNav('notifications')">View all notifications →</button></div>`;
+  } catch(err){
+    cc.innerHTML=`<div class="alert alert-e">Error loading dashboard: ${err.message}</div>`;
+  }
+}
+
+// ── Citizen: I Am At Shop check-in ──
+async function doCheckin(){
+  const btn = document.getElementById('checkin-btn');
+  const msg = document.getElementById('checkin-msg');
+  if(btn){ btn.disabled=true; btn.textContent='Checking in...'; }
+  try {
+    const res = await api('POST','/citizen/crowd/checkin');
+    // Replace the single check-in button with "marked present" + "leaving" buttons
+    const checkinArea = btn?.parentElement;
+    if(checkinArea){
+      checkinArea.innerHTML=`
+        <button class="btn" style="width:100%;padding:10px;background:#dcfce7;border:1.5px solid #16a34a;color:#15803d;border-radius:9px;font-size:.84rem;font-weight:600;cursor:default" disabled>
+          ✅ You are marked as present at shop today
+        </button>
+        <button class="btn" style="width:100%;padding:8px;margin-top:.5rem;background:#fef2f2;border:1.5px solid #fca5a5;color:#dc2626;border-radius:9px;font-size:.8rem;font-weight:600" id="checkout-btn" onclick="doCheckout()">
+          🚪 I Am Leaving The Shop
+        </button>`;
+    }
+    if(msg) msg.innerHTML=`<span style="color:var(--green)">${res.message||'You are marked present at the shop.'}</span>`;
+    const cnt = res.crowd_count || 0;
+    updateCrowdUI({ waiting: cnt, pct: Math.min((cnt/20)*100,100), level: cnt>=15?'high':cnt>=7?'medium':'low', message: cnt>=15?'Shop is busy.':cnt>=7?'Moderate crowd. ~15 min wait.':'Not crowded. Great time to visit!' });
+  } catch(e){
+    if(btn){ btn.disabled=false; btn.textContent='🏪 I Am At The Shop Now'; }
+    if(msg) msg.innerHTML=`<span style="color:var(--red)">${e.message}</span>`;
+  }
+}
+
+// ── Citizen: I Am Leaving The Shop checkout ──
+async function doCheckout(){
+  const btn = document.getElementById('checkout-btn');
+  const msg = document.getElementById('checkin-msg');
+  if(btn){ btn.disabled=true; btn.textContent='Leaving...'; }
+  try {
+    const res = await api('POST','/citizen/crowd/checkout');
+    if(msg) msg.innerHTML=`<span style="color:var(--green)">✅ You have been checked out. See you next time!</span>`;
+    const cnt = res.crowd_count || 0;
+    updateCrowdUI({ waiting: cnt, pct: Math.min((cnt/20)*100,100), level: cnt>=15?'high':cnt>=7?'medium':'low', message: cnt>=15?'Shop is busy.':cnt>=7?'Moderate crowd. ~15 min wait.':'Not crowded. Great time to visit!' });
+    // Replace checkout button with "visit complete" state
+    const checkinArea = btn?.parentElement;
+    if(checkinArea) checkinArea.innerHTML=`<button class="btn" style="width:100%;padding:10px;background:#f0fdf4;border:1.5px solid #86efac;color:#15803d;border-radius:9px;font-size:.84rem;font-weight:600;cursor:default" disabled>🚪 You have left the shop</button>`;
+  } catch(e){
+    if(btn){ btn.disabled=false; btn.textContent='🚪 I Am Leaving The Shop'; }
+    if(msg) msg.innerHTML=`<span style="color:var(--red)">${e.message}</span>`;
+  }
+}
+async function rSlot(cc){
+  loading(cc,'Loading slot booking...');
+  window._rebookWarning = '';
+  try {
+    const dash = await api('GET','/citizen/dashboard');
+    if(dash.this_month_status === 'served'){
+      cc.innerHTML = `<div class="shdr"><div><h2>Book a Slot</h2><p>One booking per month only.</p></div></div>
+      <div class="card" style="text-align:center;padding:2.5rem">
+        <div style="font-size:2rem;margin-bottom:.8rem">✅</div>
+        <h3 style="color:var(--green);margin-bottom:.5rem">Ration Already Collected</h3>
+        <p style="color:var(--text2)">You have already collected your ration this month. New booking available from next month.</p>
+      </div>`;
+      return;
+    }
+    if(dash.this_month_status === 'booked'){
+      cc.innerHTML = `<div class="shdr"><div><h2>Book a Slot</h2><p>One booking per month only.</p></div></div>
+      <div class="card" style="text-align:center;padding:2.5rem">
+        <div style="font-size:2rem;margin-bottom:.8rem">📅</div>
+        <h3 style="color:var(--blue);margin-bottom:.5rem">Booking Active This Month</h3>
+        <p style="color:var(--text2)">You already have an active booking this month. Go to <a onclick="cNav('my-tokens')" style="color:var(--blue);cursor:pointer">My Tokens</a> to view it.</p>
+      </div>`;
+      return;
+    }
+    // Check rebook limit client-side using booking history
+    try {
+      const bkgs = await api('GET','/slots/my-bookings');
+      const now = new Date(); const tm = now.getMonth(); const ty = now.getFullYear();
+      const expiredThisMonth = (bkgs.bookings||[]).filter(b=>{
+        if(b.status!=='expired') return false;
+        const d = new Date(b.slot_date+'T00:00:00'); return d.getMonth()===tm && d.getFullYear()===ty;
+      });
+      if(expiredThisMonth.length >= 2){
+        cc.innerHTML = `<div class="shdr"><div><h2>Book a Slot</h2></div></div>
+        <div class="card" style="text-align:center;padding:2.5rem;border:2px solid #fca5a5">
+          <div style="font-size:2.5rem;margin-bottom:.8rem">⚠️</div>
+          <h3 style="color:#dc2626;margin-bottom:.6rem">Rebook Limit Reached</h3>
+          <p style="color:var(--text1);font-size:.95rem;margin-bottom:.8rem">
+            You have missed your slot <b>${expiredThisMonth.length} time${expiredThisMonth.length>1?'s':''}</b> this month.
+            The maximum allowed rebooks per month is <b>2</b>.
+          </p>
+          <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:1.2rem;margin-bottom:1rem">
+            <div style="font-size:1.1rem;font-weight:700;color:#dc2626;margin-bottom:.4rem">📦 Collect Your Ration Next Month</div>
+            <p style="color:#7f1d1d;font-size:.87rem;line-height:1.6">
+              Your ration entitlement for this month is still reserved for you — it will <b>not</b> be forfeited.
+              Please visit the shop directly with your ration card, or wait for next month's booking window to open.
+            </p>
+          </div>
+          <div style="font-size:.78rem;color:var(--text2)">Facing issues? <a onclick="cNav('complaints')" style="color:var(--blue);cursor:pointer">File a complaint →</a></div>
+        </div>`;
+        return;
+      }
+      if(expiredThisMonth.length === 1){
+        window._rebookWarning = `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:.75rem 1rem;margin-bottom:1rem;font-size:.83rem;color:#92400e">
+          ⚠️ <b>Rebook Warning:</b> You have already missed 1 slot this month. You have <b>1 rebook remaining</b>. Missing again means you cannot book for this month.
+        </div>`;
+      }
+    } catch(e2){ /* ignore */ }
+  } catch(e) {}
+  const sd=window._sd||''; const ss=window._ss;
+  const s1=sd?'dn':'ac', s2=(sd&&ss!==null)?'dn':sd?'ac':'', s3=(sd&&ss!==null)?'ac':'';
+  let sHTML='';
+
+  if(sd){
+    try {
+      const data = await api('GET',`/slots?date=${sd}`);
+      sHTML = '<div class="sgrid">';
+      data.slots.forEach(sl=>{
+        const isSel    = ss!==null && sl.id===ss;
+        const isLocked = sl.elder_locked;
+        const isPast   = sl.is_past;
+        const isDisabled = sl.is_full || isLocked || isPast;
+        const cls      = `slc${sl.is_elder_slot?' slc-elder':''}${isDisabled?' slc-full':''}${isSel?' slc-sel':''}`;
+        const clickAttr = isDisabled ? '' : `onclick="pickSlot(${sl.id})"`;
+        sHTML += `<div class="${cls}" ${clickAttr} style="${isPast?'opacity:.45;filter:grayscale(.5)':''}">
+          ${isPast ? '<span class="full-badge" style="background:#f1f5f9;color:#64748b;border:1px solid #cbd5e1">⏰ TIME PASSED</span>' : ''}
+          ${sl.is_full && !isLocked && !isPast ?'<span class="full-badge">FULL</span>':''}
+          ${isLocked && !isPast ? '<span class="full-badge" style="background:#fef3c7;color:#d97706;border:1px solid #fde68a">👴 SENIORS ONLY</span>' : ''}
+          ${sl.is_elder_slot?'<div class="elder-badge">👴 Elder Walk-in</div>':''}
+          <span class="slt">${sl.label}</span>
+          <span class="slr">${isPast ? 'Cannot book past slots' : isLocked ? 'Reserved for age 60+' : sl.is_full ? 'No tokens left' : sl.remaining+' of '+sl.max_tokens+' left'}</span>
+        </div>`;
+      });
+      sHTML += '</div>';
+      if(ss!==null){
+        const fsl = data.slots.find(x=>x.id===ss);
+        if(fsl) sHTML += `<div class="ibox" style="margin-top:.5rem"><b>Selected:</b> ${fsl.label}${fsl.is_elder_slot?' (Elder Walk-in)':''} on ${sd}</div>
+          <button class="btn btn-blue" style="width:100%;padding:11px;font-size:.95rem" onclick="confirmBook()">Confirm Booking</button>`;
+      }
+    } catch(e){ sHTML=`<div class="alert alert-e">${e.message}</div>`; }
+  } else {
+    sHTML='<div style="text-align:center;padding:3rem 1rem;color:var(--text2)"><div style="font-size:2.5rem;margin-bottom:.7rem">📅</div><p>Select a date above to see available time slots.</p></div>';
+  }
+
+  cc.innerHTML = `
+  <div class="shdr"><div><h2>Book a Slot</h2><p>Select a date then choose a time slot.</p></div></div>
+  ${window._rebookWarning||''}
+  <div class="srow">
+    <div class="step ${s1}">1. Select Date${sd?' ✓':''}</div>
+    <div class="step ${s2}">2. Choose Slot${ss!==null?' ✓':''}</div>
+    <div class="step ${s3}">3. Confirm</div>
+  </div>
+  <div class="card" style="margin-bottom:1rem">
+    <div class="date-wrap">
+      <label>Select Date:</label>
+      <input type="date" id="slot-date" min="${todayStr()}" value="${sd||''}" onchange="onDateChange(this.value)">
+    </div>
+    ${sd?`<div style="font-size:.81rem;color:var(--text2)">Showing slots for <b>${sd}</b></div>`:''}
+  </div>
+  <div class="card"><div class="ct">Available Time Slots${sd?' — '+sd:''}</div>${sHTML}
+  <div style="margin-top:.8rem;padding:.55rem .8rem;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:.77rem;color:#92400e">
+    👴 <b>4 - 5 PM</b> is reserved as an <b>Elder Walk-in slot</b> for senior citizens aged 60 and above only.
+  </div>
+  </div>`;
+}
+
+function onDateChange(v){ window._sd=v; window._ss=null; rSlot(document.getElementById('cc')); }
+function pickSlot(id){ window._ss=id; rSlot(document.getElementById('cc')); }
+
+async function confirmBook(){
+  const btn = document.querySelector('#cc .btn-blue:last-child');
+  if(btn){ btn.innerHTML='<span class="spin"></span>Booking...'; btn.disabled=true; }
+  try {
+    const data = await api('POST','/slots/book',{ slot_id: window._ss });
+    window._sd=''; window._ss=null;
+    alert(`✅ Booking confirmed!\nToken: ${data.token_number}\nSlot: ${data.slot_label}\nDate: ${data.slot_date}`);
+    cNav('my-tokens');
+  } catch(e){
+    if(e.message === 'REBOOK_LIMIT_REACHED'){
+      window._sd=''; window._ss=null;
+      rSlot(document.getElementById('cc')); // will show the limit-reached screen
+    } else {
+      alert('❌ '+e.message);
+      if(btn){ btn.innerHTML='Confirm Booking'; btn.disabled=false; }
+    }
+  }
+}
+
+// ── Citizen: My Tokens ──
+async function rTok(cc){
+  loading(cc,'Loading your tokens...');
+  try {
+    const [data, ratingData] = await Promise.all([
+      api('GET','/slots/my-bookings'),
+      api('GET','/citizen/ratings').catch(()=>({ratings:[]}))
+    ]);
+    const act  = data.bookings.filter(b=>b.status==='booked');
+    const his  = data.bookings.filter(b=>b.status!=='booked');
+    const pl   = ['','Elderly','Long Dist','Medium','Nearby'];
+    // Build a map of booking_id -> rating for quick lookup
+    const ratingMap = {};
+    (ratingData.ratings||[]).forEach(r=>{ ratingMap[r.booking_id]=r; });
+
+    cc.innerHTML = `
+    <div class="shdr"><div><h2>My Tokens</h2><p>Your active bookings and history.</p></div></div>
+    <h3 style="font-size:.87rem;color:var(--blue);font-weight:700;margin-bottom:.7rem">ACTIVE TOKENS</h3>
+    ${act.length===0?`<div class="card" style="text-align:center;padding:2rem;margin-bottom:1.2rem;color:var(--text2)">No active bookings. <a onclick="cNav('slot-booking')" style="color:var(--blue);cursor:pointer;font-weight:500">Book a slot →</a></div>`:
+    '<div style="display:grid;gap:.8rem;margin-bottom:1.2rem">'+act.map(t=>`
+      <div class="tc">
+        <div style="display:flex;justify-content:space-between;align-items:start">
+          <div><div style="font-size:.69rem;color:var(--blue);font-weight:700;letter-spacing:.05em">TOKEN NUMBER</div><div class="tn">${t.token_number}</div></div>
+          <span class="bdg bgb">Awaiting Collection</span>
+        </div>
+        <hr class="divider">
+        <div style="display:flex;gap:2rem">
+          <div><div style="font-size:.68rem;color:var(--text2);font-weight:600">SLOT</div><div style="font-size:.87rem;font-weight:600;color:var(--navy)">${t.slot_label}</div></div>
+          <div><div style="font-size:.68rem;color:var(--text2);font-weight:600">DATE</div><div style="font-size:.87rem;font-weight:600;color:var(--navy)">${fmtDate(t.slot_date)}</div></div>
+        </div>
+      </div>`).join('')+'</div>'}
+    <h3 style="font-size:.87rem;color:var(--text2);font-weight:700;margin-bottom:.7rem">BOOKING HISTORY</h3>
+    <div style="display:grid;gap:.6rem">${his.length===0?'<div class="card" style="text-align:center;padding:1.5rem;color:var(--text2)">No booking history yet.</div>':his.map(t=>{
+      const existingRating = ratingMap[t.id];
+      const ratingSection = t.status==='served' ? (existingRating
+        ? `<div style="margin-top:.8rem;padding:.7rem .9rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px">
+             <div style="font-size:.72rem;color:var(--text2);font-weight:600;margin-bottom:.3rem">YOUR RATING</div>
+             <div style="display:flex;align-items:center;gap:.5rem">
+               <div style="font-size:1.2rem">${'⭐'.repeat(existingRating.stars)}${'☆'.repeat(5-existingRating.stars)}</div>
+               <span style="font-size:.78rem;font-weight:600;color:var(--green)">${existingRating.stars}/5</span>
+             </div>
+             ${existingRating.review?`<div style="font-size:.78rem;color:var(--text2);margin-top:.3rem;font-style:italic">"${existingRating.review}"</div>`:''}
+             <div style="font-size:.69rem;color:var(--text3);margin-top:.25rem">Submitted ${new Date(existingRating.created_at).toLocaleDateString()}</div>
+           </div>`
+        : `<div style="margin-top:.8rem;padding:.8rem .9rem;background:#fffbeb;border:1px solid #fde68a;border-radius:8px" id="rate-box-${t.id}">
+             <div style="font-size:.75rem;color:#92400e;font-weight:600;margin-bottom:.5rem">⭐ Rate Your Experience (optional)</div>
+             <div style="display:flex;gap:.3rem;margin-bottom:.5rem" id="stars-${t.id}">
+               ${[1,2,3,4,5].map(s=>`<span onclick="selectStar(${t.id},${s})" style="font-size:1.6rem;cursor:pointer;transition:transform .1s;user-select:none" data-star="${s}" title="${s} star${s>1?'s':''}">☆</span>`).join('')}
+             </div>
+             <textarea id="review-${t.id}" placeholder="Add a comment (optional)..." rows="2" style="width:100%;border:1px solid #fde68a;border-radius:6px;padding:.4rem .55rem;font-size:.8rem;resize:none;background:#fffef5;font-family:inherit;box-sizing:border-box"></textarea>
+             <button onclick="submitRating(${t.id})" style="margin-top:.4rem;background:var(--amber);color:#fff;border:none;border-radius:7px;padding:.45rem 1.1rem;font-size:.8rem;font-weight:600;cursor:pointer">Submit Rating</button>
+             <div id="rate-msg-${t.id}" style="font-size:.76rem;margin-top:.3rem"></div>
+           </div>`)
+      : t.status==='expired'
+        ? `<div style="margin-top:.5rem;font-size:.78rem;color:var(--amber)">⚠️ You missed this slot. <a onclick="cNav('slot-booking')" style="color:var(--blue);font-weight:600;cursor:pointer">Re-book a new slot →</a></div>`
+        : '';
+      return `<div class="tc ${t.status==='served'?'srv':'exp'}">
+        <div style="display:flex;justify-content:space-between;align-items:start">
+          <div><div style="font-size:.69rem;color:var(--text2);font-weight:600">TOKEN NUMBER</div><div class="tn" style="font-size:2rem">${t.token_number}</div></div>
+          <span class="bdg ${t.status==='served'?'bgg':t.status==='expired'?'bga':'bgr'}">${t.status==='served'?'✅ Collected':t.status==='expired'?'⚠️ Missed':'❌ Expired'}</span>
+        </div>
+        <div style="display:flex;gap:2rem;margin-top:.6rem">
+          <div><div style="font-size:.68rem;color:var(--text2);font-weight:600">SLOT</div><div style="font-size:.84rem">${t.slot_label}</div></div>
+          <div><div style="font-size:.68rem;color:var(--text2);font-weight:600">DATE</div><div style="font-size:.84rem">${fmtDate(t.slot_date)}</div></div>
+        </div>
+        ${ratingSection}
+      </div>`;
+    }).join('')}</div>`;
+  } catch(e){ cc.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+// ── Star rating helpers ──
+function selectStar(bookingId, stars){
+  const container = document.getElementById(`stars-${bookingId}`);
+  if(!container) return;
+  container.querySelectorAll('span').forEach(s=>{
+    const n = parseInt(s.dataset.star);
+    s.textContent = n <= stars ? '⭐' : '☆';
+    s.style.transform = n === stars ? 'scale(1.25)' : 'scale(1)';
+  });
+  container.dataset.selected = stars;
+}
+
+async function submitRating(bookingId){
+  const container = document.getElementById(`stars-${bookingId}`);
+  const stars = parseInt(container?.dataset.selected || '0');
+  const review = document.getElementById(`review-${bookingId}`)?.value?.trim();
+  const msgEl = document.getElementById(`rate-msg-${bookingId}`);
+  const btn = document.querySelector(`#rate-box-${bookingId} button`);
+
+  if(!stars){
+    if(msgEl) msgEl.innerHTML='<span style="color:#dc2626">Please select a star rating first.</span>';
+    return;
+  }
+  if(btn){ btn.disabled=true; btn.textContent='Submitting...'; }
+  try {
+    const res = await api('POST','/citizen/ratings',{ booking_id: bookingId, stars, review: review||null });
+    // Replace the rating box with the submitted state
+    const box = document.getElementById(`rate-box-${bookingId}`);
+    if(box) box.outerHTML = `<div style="margin-top:.8rem;padding:.7rem .9rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px">
+      <div style="font-size:.72rem;color:var(--text2);font-weight:600;margin-bottom:.3rem">YOUR RATING</div>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <div style="font-size:1.2rem">${'⭐'.repeat(stars)}${'☆'.repeat(5-stars)}</div>
+        <span style="font-size:.78rem;font-weight:600;color:var(--green)">${stars}/5</span>
+      </div>
+      ${review?`<div style="font-size:.78rem;color:var(--text2);margin-top:.3rem;font-style:italic">"${review}"</div>`:''}
+      <div style="font-size:.69rem;color:var(--text3);margin-top:.25rem">✅ ${res.message}</div>
+    </div>`;
+  } catch(err){
+    if(msgEl) msgEl.innerHTML=`<span style="color:#dc2626">${err.message}</span>`;
+    if(btn){ btn.disabled=false; btn.textContent='Submit Rating'; }
+  }
+}
+
+// ── Citizen: Stock ──
+async function rStock(cc){
+  loading(cc,'Loading stock...');
+  try {
+    const data = await api('GET','/citizen/stock');
+    cc.innerHTML = `<div class="shdr"><div><h2>Stock Availability</h2><p>Real-time stock at your assigned ration shop.</p></div></div>
+    <div class="g2">${data.stock.map(s=>{
+      const pct=Math.round(s.quantity/s.max_capacity*100);
+      const col=pct>50?'#16a34a':pct>20?'#d97706':'#dc2626';
+      const lbl=pct>50?'Sufficient':pct>20?'Low':'Critical';
+      const bcl=pct>50?'bgg':pct>20?'bga':'bgr';
+      return `<div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:.65rem"><div class="ct" style="margin:0">${s.item_name}</div><span class="bdg ${bcl}">${lbl}</span></div>
+        <div style="font-size:1.65rem;font-weight:700;color:${col}">${s.quantity} ${s.unit}</div>
+        <div class="stb" style="margin:.38rem 0"><div class="stf" style="width:${pct}%;background:${col}"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--text2)"><span>${pct}% remaining</span><span>${s.allotment_per_person}${s.unit}/person</span></div>
+        <div style="font-size:.7rem;color:var(--text3);margin-top:.3rem">Last updated: ${new Date(s.last_updated).toLocaleString()}</div>
+      </div>`;
+    }).join('')}</div>`;
+  } catch(e){ cc.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+// ── Citizen: My Details ──
+async function rDet(cc){
+  loading(cc,'Loading your details...');
+  try {
+    const data = await api('GET','/citizen/details');
+    const u=data.user, fam=data.family;
+    // Fields to display — NO email
+    const fields = [
+      ['Ration Card', u.ration_card||'-'],
+      ['Phone',       u.phone||'-'],
+      ['Age',         (u.age||'-')+' years'],
+      ['Card Type',   u.card_type||'-'],
+      ['District',    u.district_name||'-'],
+      ['Pincode',     u.pincode||'-'],
+    ];
+    cc.innerHTML = `
+    <div class="shdr"><div><h2>My Details</h2><p>Your ration card and family information.</p></div></div>
+    <div class="card" style="margin-bottom:1.2rem">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+        <div style="width:52px;height:52px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;color:#fff">${u.name[0]}</div>
+        <div>
+          <h3 style="font-size:1.05rem;color:var(--navy)">${u.name}</h3>
+          <div style="display:flex;gap:.4rem;margin-top:.28rem">
+            <span class="bdg bgb">${u.card_type} Card</span>
+            ${parseInt(u.age)>=60?'<span class="bdg bga">Senior Citizen</span>':''}
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.45rem">
+        ${fields.map(([k,v])=>
+          `<div style="padding:.52rem .7rem;background:#f8fafc;border:1px solid var(--border);border-radius:8px">
+            <div style="font-size:.69rem;color:var(--text2);font-weight:600;margin-bottom:.1rem">${k}</div>
+            <div style="font-size:.84rem;color:var(--navy);font-weight:500">${v}</div>
+          </div>`).join('')}
+      </div>
+      <div style="margin-top:.45rem;padding:.52rem .7rem;background:var(--blue4);border:1px solid #bfdbfe;border-radius:8px">
+        <div style="font-size:.69rem;color:var(--blue);font-weight:600;margin-bottom:.1rem">Assigned Shop</div>
+        <div style="font-size:.84rem;color:var(--navy);font-weight:500">${u.shop_name||'-'} · ${u.shop_code||''}</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1.2rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem">
+        <div class="ct" style="margin:0">👨‍👩‍👧 Family Members on Ration Card</div>
+        <span class="bdg bgb" style="font-size:.72rem">${fam.length} member(s)</span>
+      </div>
+      ${fam.length===0
+        ? '<p style="color:var(--text2);font-size:.85rem;text-align:center;padding:.8rem">No family members on record. Contact your district office.</p>'
+        : `<div style="overflow-x:auto"><table>
+            <thead><tr>
+              <th style="width:40px">#</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Gender</th>
+              <th>Relation to Head</th>
+            </tr></thead>
+            <tbody>
+            ${fam.map(f=>`<tr>
+              <td style="color:var(--text2);font-size:.8rem;font-weight:600;text-align:center">${f.serial_no}</td>
+              <td><b>${f.name}</b>${f.serial_no===1?' <span class=\"bdg bgb\" style=\"font-size:.6rem\">Head</span>':''}</td>
+              <td style="text-align:center">${f.age||'-'}</td>
+              <td>${f.gender||'-'}</td>
+              <td>${f.relation_to_head||'-'}</td>
+            </tr>`).join('')}
+            </tbody>
+          </table></div>
+          <div style="margin-top:.65rem;font-size:.77rem;color:var(--text2)">
+            Total <b>${fam.length}</b> member(s) · Rice entitlement: <b>${fam.length*5}kg base</b>
+            (${u.card_type==='APL'?fam.length*5:u.card_type==='BPL'?Math.round(fam.length*5*1.5):fam.length*5*2}kg after ${u.card_type} multiplier)
+          </div>`}
+    </div>`;
+  } catch(e){ cc.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+
+// ── Citizen: Notifications ──
+async function rNotifs(cc){
+  updateNotifBadge(0);
+  loading(cc,'Loading notifications...');
+  try {
+    api('PATCH','/citizen/notifications/read-all').catch(()=>{});
+    const data = await api('GET','/citizen/notifications');
+    const tc = {slot:'bgb',crowd:'bgg',stock:'bga',general:'bggr',shop:'bgb'};
+    cc.innerHTML = `
+    <div class="shdr"><div><h2>Notifications</h2></div>
+      <button class="btn btn-ghost btn-sm" onclick="markAllRead()">Mark all read</button>
+    </div>
+    <div class="card" style="padding:0">
+    ${data.notifications.length===0?'<div style="text-align:center;padding:2rem;color:var(--text2)">No notifications yet.</div>':
+    data.notifications.map(n=>`
+      <div class="ni ${n.is_read?'':'unr'}" onclick="markOneRead(${n.id})">
+        ${n.is_read?'<div style="width:8px;flex-shrink:0"></div>':'<div class="nd"></div>'}
+        <div style="flex:1">
+          <div style="font-size:.85rem;color:var(--navy)">${n.message}</div>
+          <div style="font-size:.72rem;color:var(--text2);margin-top:.22rem;display:flex;gap:.4rem;align-items:center">
+            <span class="bdg ${tc[n.type]||'bggr'}" style="font-size:.62rem">${n.type}</span>
+            <span>${new Date(n.created_at).toLocaleString()}</span>
+          </div>
+        </div>
+      </div>`).join('')}
+    </div>`;
+  } catch(e){ cc.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+async function markOneRead(id){
+  try { await api('PATCH',`/citizen/notifications/${id}/read`); cNav('notifications'); } catch(e){}
+}
+async function markAllRead(){
+  try { await api('PATCH','/citizen/notifications/read-all'); cNav('notifications'); } catch(e){}
+}
+
+// ── Citizen: Complaints ──
+async function rComp(cc){
+  loading(cc,'Loading...');
+  try {
+    const data = await api('GET','/citizen/my-complaints');
+    cc.innerHTML = `
+    <div class="shdr"><div><h2>Complaints & Suggestions</h2><p>Sent directly to Government Authority.</p></div></div>
+    <div class="card" style="margin-bottom:1.2rem">
+      <div class="ct">Submit Complaint</div>
+      <div class="wbox">🔒 Your complaint goes directly to the Government Authority. Shop admin cannot see it.</div>
+      <div id="cal"></div>
+      <div class="fg"><label>Category</label>
+        <select id="ccat"><option value="">Select category</option>
+          <option>Malpractice (Forced Purchase)</option><option>Stock Issue</option>
+          <option>Staff Behavior</option><option>Ration Not Given</option>
+          <option>Suggestion</option><option>Other</option>
+        </select>
+      </div>
+      <div class="fg"><label>Description</label><textarea id="cmsg" placeholder="Describe your complaint or suggestion..."></textarea></div>
+      <div style="display:flex;justify-content:flex-end"><button class="btn btn-blue" onclick="subComp()">Submit Complaint →</button></div>
+    </div>
+    ${data.complaints.length>0?`<div class="card"><div class="ct">Your Past Complaints</div>${data.complaints.map(c=>`
+      <div style="padding:.75rem;background:#f8fafc;border:1px solid var(--border);border-radius:8px;margin-bottom:.45rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.38rem;flex-wrap:wrap;gap:.3rem">
+          <span class="bdg ${c.category.includes('Malpractice')?'bgr':'bgb'}">${c.category}</span>
+          <div style="display:flex;gap:.35rem;align-items:center">
+            <span class="bdg ${c.status==='resolved'?'bgg':c.status==='escalated'?'bgr':'bga'}">${c.status==='resolved'?'✅ Resolved':c.status==='escalated'?'⚠️ Escalated':'🕐 Pending'}</span>
+            <span style="font-size:.72rem;color:var(--text2)">${new Date(c.submitted_at).toLocaleDateString()}</span>
+          </div>
+        </div>
+        <p style="font-size:.84rem;color:var(--text2)">${c.message}</p>
+      </div>`).join('')}</div>`:''}`;
+  } catch(e){ cc.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+async function subComp(){
+  const cat=document.getElementById('ccat').value;
+  const msg=document.getElementById('cmsg').value.trim();
+  const al =document.getElementById('cal');
+  if(!cat){ al.innerHTML='<div class="alert alert-e">Please select a category.</div>'; return; }
+  if(!msg){ al.innerHTML='<div class="alert alert-e">Please enter a description.</div>'; return; }
+  try {
+    await api('POST','/citizen/complaints',{ category:cat, message:msg });
+    al.innerHTML='<div class="alert alert-s">✅ Complaint recorded and forwarded to Government Authority.</div>';
+    document.getElementById('ccat').value=''; document.getElementById('cmsg').value='';
+  } catch(e){ al.innerHTML=`<div class="alert alert-e">${e.message}</div>`; }
+}
+
+// ── Citizen: Help ──
+function rHelp(cc){
+  const faqs=[
+    ['How do I book a slot?','Click "Book a Slot" in the sidebar. Select a date — slots appear as cards. Click a slot card to select it, then click Confirm Booking to get your token.'],
+    ['How is crowd count calculated?','It equals the number of people who booked a slot but are not yet served. It decreases automatically when the admin marks a token as served.'],
+    ['Who is served first at the shop?','Citizens are served strictly in the order they booked their slot — First Booked → First Served. No priority applies.'],
+    ['What if my phone is rejected during registration?','Your phone must match the one registered in the Government ration database for your shop. Contact your district office if there is a mismatch.'],
+    ['What if I miss my slot?','Your token expires automatically. Book a new slot for another day.'],
+    ['Is there a special slot for elderly?','Yes — Elder Walk-in Slot (9:00-9:30 AM). Senior citizens can come directly without booking.'],
+    ['How do I file a complaint?','Go to Complaints — it goes directly to Government Authority, the shop admin cannot see it.'],
+  ];
+  cc.innerHTML=`
+  <div class="shdr"><div><h2>Help Center</h2><p>FAQs and contact information.</p></div></div>
+  <div class="card" style="margin-bottom:1.2rem"><div class="ct">Frequently Asked Questions</div>
+  ${faqs.map((f,i)=>`<div class="fqi"><div class="fqq" onclick="tFaq(${i})"><span>${f[0]}</span><span id="fi${i}" style="font-size:.8rem;color:var(--blue)">▼</span></div><div class="fqa" id="fa${i}">${f[1]}</div></div>`).join('')}
+  </div>
+  <div class="card"><div class="ct">Contact Us</div><div class="g2">
+    <div style="padding:.8rem;background:var(--blue4);border:1px solid #bfdbfe;border-radius:9px">
+      <div style="font-size:.71rem;color:var(--blue);font-weight:700;margin-bottom:.22rem">📞 HELPLINE (TOLL-FREE)</div>
+      <div style="font-size:1.05rem;font-weight:700;color:var(--navy)">1800-425-0082</div>
+      <div style="font-size:.73rem;color:var(--text2)">Mon-Sat · 9 AM - 6 PM</div>
+    </div>
+    <div style="padding:.8rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:9px">
+      <div style="font-size:.71rem;color:#15803d;font-weight:700;margin-bottom:.22rem">✉️ EMAIL SUPPORT</div>
+      <div style="font-size:.92rem;font-weight:700;color:var(--navy)">support@rationportal.gov.in</div>
+      <div style="font-size:.73rem;color:var(--text2)">Response within 2 working days</div>
+    </div>
+  </div></div>`;
+}
+
+function tFaq(i){ const a=document.getElementById(`fa${i}`); const ic=document.getElementById(`fi${i}`); a.classList.toggle('op'); ic.textContent=a.classList.contains('op')?'▲':'▼'; }
+
+// ============================================================
+// ADMIN NAVIGATION
+// ============================================================
+function aN(sec){
+  document.querySelectorAll('#pg-admin .si').forEach(x=>x.classList.remove('on'));
+  const el=document.getElementById('an-'+sec); if(el) el.classList.add('on');
+  const ac=document.getElementById('ac');
+  const map={
+    'overview':      ()=>{ triggerExpireCheck(); rAdmOvr(ac); },
+    'shop-status':   ()=>rShop(ac),
+    'bookings':      ()=>rBkgs(ac),
+    'serve':         ()=>rServe(ac),
+    'stock':         ()=>rAStk(ac),
+    'beneficiaries': ()=>rBen(ac),
+    'send-notif':    ()=>rSendN(ac),
+    'reports':       ()=>rRep(ac),
+  };
+  if(map[sec]) map[sec]();
+}
+
+// ── Admin: Notify users about low stock ──
+async function notifyLowStock(btn) {
+  if(btn){ btn.disabled=true; btn.textContent='Sending...'; }
+  try {
+    // Read the low stock items directly from the alert cards in the DOM
+    const alertDivs = document.querySelectorAll('#admin-alerts-area > div');
+    const items = [];
+    alertDivs.forEach(div => {
+      const txt = div.textContent.trim();
+      if(txt && txt.startsWith('📦')) items.push(txt.replace('📦','').trim());
+    });
+
+    const itemLines = items.length > 0
+      ? items.map(i => `• ${i}`).join('\n')
+      : 'Some items are running low';
+
+    const message = `⚠️ Stock Alert from your Ration Shop:\n${itemLines}\n\nPlease collect your ration soon before stock runs out.`;
+
+    await api('POST', '/admin/notifications', { message, type: 'stock' });
+
+    if(btn){
+      btn.style.background='#f0fdf4';
+      btn.style.borderColor='#86efac';
+      btn.style.color='#15803d';
+      btn.textContent='✅ All users notified!';
+      setTimeout(()=>{
+        btn.disabled=false;
+        btn.style.background='#fff7ed';
+        btn.style.borderColor='#fed7aa';
+        btn.style.color='#c2410c';
+        btn.textContent='📢 Notify All Users About Low Stock';
+      }, 4000);
+    }
+    showLiveBanner('✅ Low stock notification sent to all users!', 'success');
+  } catch(e) {
+    if(btn){ btn.disabled=false; btn.textContent='📢 Notify All Users About Low Stock'; }
+    showLiveBanner('Error sending notification: '+e.message, 'error');
+  }
+}
+
+// ── Admin: Dashboard ──
+async function rAdmOvr(ac){
+  loading(ac,'Loading admin dashboard...');
+  try {
+    const d = await api('GET','/admin/dashboard');
+    const s = d.stats; const col=s.crowd_level==='high'?'var(--red)':s.crowd_level==='medium'?'var(--amber)':'var(--green)';
+    const cbdg=s.crowd_level==='high'?'bgr':s.crowd_level==='medium'?'bga':'bgg';
+    ac.innerHTML=`
+    <div class="shdr"><div><h2>Admin Dashboard</h2><p>Today — ${new Date().toDateString()}</p></div></div>
+    <div class="g4" style="margin-bottom:1.2rem">
+      <div class="sc"><div class="sl">Today's Bookings</div><div class="sv">${s.total||0}</div><div class="ss">${s.waiting||0} pending · ${s.expired||0} missed</div></div>
+      <div class="sc"><div class="sl">Served Today</div><div class="sv" style="color:var(--green)">${s.served||0}</div><div class="ss">of ${s.total||0} total today</div></div>
+      <div class="sc"><div class="sl">People at Shop</div><div class="sv" style="color:${col}" data-live="crowd-waiting">${s.crowd_waiting||0}</div><div class="ss">physically checked in</div></div>
+      <div class="sc"><div class="sl">Shop Status</div><div class="sv" style="font-size:.9rem">${d.shop?.is_open?'🟢 Open':'🔴 Closed'}</div></div>
+    </div>
+    <div class="g2" style="margin-bottom:1.2rem">
+      <div class="card"><div class="ct">Quick Controls</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.72rem;background:#f8fafc;border:1px solid var(--border);border-radius:8px;margin-bottom:.45rem">
+          <span style="font-size:.87rem;font-weight:500">Shop Open / Closed</span>
+          <label class="tgl"><input type="checkbox" id="shop-toggle" ${d.shop?.is_open?'checked':''} onchange="toggleShop(this.checked)"><span class="tsl"></span></label>
+        </div>
+        <div style="padding:.72rem;background:#f8fafc;border:1px solid var(--border);border-radius:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.38rem">
+            <span style="font-size:.87rem;font-weight:500">Live Crowd Count</span>
+            <span class="bdg ${cbdg}">${s.crowd_level?.toUpperCase()||'LOW'} · ${s.crowd_waiting||0} people</span>
+          </div>
+          <div style="height:7px;background:#e2e8f0;border-radius:4px;overflow:hidden">
+            <div style="height:100%;width:${Math.min(s.crowd_pct||0,100)}%;background:${col};border-radius:4px"></div>
+          </div>
+          <div style="font-size:.71rem;color:var(--text2);margin-top:.32rem">Decreases when tokens are served. Citizens click "I Am At Shop" to add.</div>
+        </div>
+      </div>
+      <div class="card"><div class="ct">⚠️ Alerts</div>
+        <div id="admin-alerts-area">
+        ${d.low_stock?.length ? d.low_stock.map(s=>`<div style="padding:.5rem .7rem;background:#fef2f2;border:1px solid #fecaca;border-radius:7px;font-size:.79rem;color:#dc2626;margin-bottom:.38rem">📦 ${s.item_name} ${s.quantity/s.max_capacity<0.15?'critically ':s.quantity/s.max_capacity<0.3?'':''}low — ${s.quantity}${s.unit}</div>`).join('') : '<div style="padding:.5rem .7rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:7px;font-size:.79rem;color:#15803d">✅ All stock levels are adequate</div>'}
+        </div>
+        ${d.low_stock?.length ? `<button class="btn" id="notify-stock-btn" style="width:100%;margin-top:.7rem;padding:8px;background:#fff7ed;border:1.5px solid #fed7aa;color:#c2410c;border-radius:8px;font-size:.8rem;font-weight:600" onclick="notifyLowStock(this)">📢 Notify All Users About Low Stock</button>` : ''}
+      </div>
+    </div>
+    <div class="card"><div class="ct">Today's Queue</div>
+    <div style="overflow-x:auto"><table>
+      <tr><th>Token</th><th>Citizen</th><th>Slot</th><th>Status</th></tr>
+      ${d.queue?.map(b=>`<tr>
+        <td style="font-weight:700;color:var(--blue)">${b.token_number}</td>
+        <td><b>${b.citizen_name}</b><br><span style="font-size:.73rem;color:var(--text2)">${b.ration_card}</span></td>
+        <td style="font-size:.81rem">${b.slot_label}</td>
+        <td><span class="bdg ${b.status==='booked'?'bga':'bgg'}">${b.status}</span></td>
+      </tr>`).join('')||'<tr><td colspan="5" style="text-align:center;color:var(--text2);padding:1.5rem">No bookings today</td></tr>'}
+    </table></div></div>`;
+  } catch(e){ ac.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+// ── Admin: Toggle shop open/close ──
+async function toggleShop(isOpen){
+  try {
+    // Get current settings first (to preserve times)
+    const d = await api('GET','/admin/shop-settings?shop_id=1');
+    const s = d.settings || {};
+    const res = await api('PATCH','/admin/shop-settings',{
+      shop_id:    s.shop_id || 1,
+      is_open:    isOpen,
+      open_time:  s.open_time  || '09:00:00',
+      close_time: s.close_time || '18:00:00'
+    });
+    // Show success — no alert() popup, update in-page
+    const statusDiv = document.querySelector('#ac .sv');
+    if(statusDiv) statusDiv.textContent = isOpen ? '🟢 Open' : '🔴 Closed';
+    showAdminToast(`✅ ${res.message}`);
+    // Refresh dashboard stats
+    aN('overview');
+  } catch(e){
+    showAdminToast('❌ Failed to save: ' + e.message, 'error');
+  }
+}
+
+// ── Admin: Shop Status page ──
+async function rShop(ac){
+  loading(ac,'Loading shop settings...');
+  try {
+    const d = await api('GET','/admin/shop-settings?shop_id=1');
+    const s = d.settings || {};
+    const isOpen = s.is_open === 1 || s.is_open === true;
+    ac.innerHTML=`
+    <div class="shdr"><div><h2>Shop Status Management</h2><p>Set shop hours and open/closed status. Citizens are notified automatically.</p></div></div>
+    <div class="g2">
+      <div class="card"><div class="ct">Open / Closed Status</div>
+        <div id="shop-alert"></div>
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem">
+          <label class="tgl"><input type="checkbox" id="shop-open-chk" ${isOpen?'checked':''}><span class="tsl"></span></label>
+          <span id="shop-status-label" style="font-size:1rem;font-weight:700;color:${isOpen?'var(--green)':'var(--red)'}">${isOpen?'🟢 Shop is OPEN':'🔴 Shop is CLOSED'}</span>
+        </div>
+        <div style="margin-bottom:1rem;padding:.8rem;background:#f8fafc;border:1px solid var(--border);border-radius:8px;font-size:.83rem;color:var(--text2)">
+          <b>Current status:</b> ${isOpen?'<span style="color:var(--green)">OPEN</span>':'<span style="color:var(--red)">CLOSED</span>'}
+          &nbsp;·&nbsp; Hours: ${s.open_time||'09:00'} – ${s.close_time||'18:00'}
+          &nbsp;·&nbsp; <span style="color:var(--text3)">Updated: ${s.updated_at ? new Date(s.updated_at).toLocaleString() : 'Never'}</span>
+        </div>
+        <div class="fg"><label>Opening Time</label><input type="time" id="open-time" value="${(s.open_time||'09:00:00').substring(0,5)}"></div>
+        <div class="fg"><label>Closing Time</label><input type="time" id="close-time" value="${(s.close_time||'18:00:00').substring(0,5)}"></div>
+        <button class="btn btn-blue" style="width:100%;padding:11px" onclick="saveShopSettings(${s.shop_id||1})">
+          💾 Save Changes
+        </button>
+      </div>
+      <div class="card">
+        <div class="ct">📋 Shop Information</div>
+        <div style="font-size:.84rem;color:var(--text2);line-height:1.9">
+          <div style="padding:.55rem .8rem;background:#f8fafc;border:1px solid var(--border);border-radius:7px;margin-bottom:.5rem"><b>Shop ID:</b> ${s.shop_id||1}</div>
+          <div style="padding:.55rem .8rem;background:#f8fafc;border:1px solid var(--border);border-radius:7px;margin-bottom:.5rem"><b>Status:</b> ${isOpen?'<span style="color:var(--green)">Open</span>':'<span style="color:var(--red)">Closed</span>'}</div>
+          <div style="padding:.55rem .8rem;background:#f8fafc;border:1px solid var(--border);border-radius:7px"><b>Hours:</b> ${s.open_time||'09:00'} – ${s.close_time||'18:00'}</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="margin-top:1rem;width:100%" onclick="aN('overview')">← Back to Dashboard</button>
+      </div>
+    </div>`;
+  } catch(e){ ac.innerHTML=`<div class="alert alert-e">Error: ${e.message}<br><small>Make sure backend is running on port 5000.</small></div>`; }
+}
+
+async function saveShopSettings(shopId){
+  const al     = document.getElementById('shop-alert');
+  const isOpen = document.getElementById('shop-open-chk').checked;
+  const ot     = document.getElementById('open-time').value;
+  const ct     = document.getElementById('close-time').value;
+  const btn    = event.target;
+
+  al.innerHTML = '<div class="alert alert-i">⏳ Saving changes...</div>';
+  btn.disabled = true; btn.textContent = 'Saving...';
+
+  try {
+    const res = await api('PATCH','/admin/shop-settings',{
+      shop_id:    shopId || 1,
+      is_open:    isOpen,
+      open_time:  ot + ':00',
+      close_time: ct + ':00'
+    });
+    al.innerHTML = `<div class="alert alert-s">✅ ${res.message}</div>`;
+
+    // Update the status label immediately
+    const lbl = document.getElementById('shop-status-label');
+    if(lbl){
+      lbl.textContent = isOpen ? '🟢 Shop is OPEN' : '🔴 Shop is CLOSED';
+      lbl.style.color = isOpen ? 'var(--green)' : 'var(--red)';
+    }
+
+    // Reload shop page to show updated DB timestamp
+    setTimeout(()=> rShop(document.getElementById('ac')), 2000);
+
+  } catch(e){
+    al.innerHTML = `<div class="alert alert-e">❌ Save failed: ${e.message}</div>`;
+  } finally {
+    btn.disabled = false; btn.textContent = '💾 Save to Database & Notify Citizens';
+  }
+}
+
+// Admin toast (non-blocking replacement for alert())
+function showAdminToast(msg, type='success'){
+  const existing = document.getElementById('admin-toast');
+  if(existing) existing.remove();
+  const t = document.createElement('div');
+  t.id = 'admin-toast';
+  const bg = type==='error' ? '#fef2f2' : '#f0fdf4';
+  const bc = type==='error' ? '#fecaca' : '#bbf7d0';
+  const tc = type==='error' ? '#dc2626' : '#15803d';
+  t.style.cssText = `position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:${bg};border:1px solid ${bc};color:${tc};padding:.8rem 1.3rem;border-radius:10px;font-size:.84rem;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,.12);max-width:380px`;
+  t.innerHTML = msg;
+  document.body.appendChild(t);
+  setTimeout(()=>{ if(t.parentElement) t.remove(); }, 4000);
+}
+
+// ── Admin: All Bookings ──
+async function rBkgs(ac, dateFilter){
+  loading(ac,'Loading bookings...');
+  try {
+    const today = todayStr();
+    const usedDate = dateFilter || today;
+    const data = await api('GET', '/admin/bookings?date=' + usedDate);
+    const bkgs = data.bookings || [];
+    const total   = bkgs.length;
+    const served  = bkgs.filter(b=>b.status==='served').length;
+    const pending = bkgs.filter(b=>b.status==='booked').length;
+    const missed  = bkgs.filter(b=>b.status==='expired').length;
+
+    // Build a mini calendar for the current month
+    const selDate = new Date(usedDate + 'T00:00:00');
+    const year = selDate.getFullYear();
+    const month = selDate.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    let calRows = '';
+    let dayCount = 1;
+    for(let row=0; row<6; row++){
+      if(dayCount > daysInMonth) break;
+      calRows += '<tr>';
+      for(let col=0; col<7; col++){
+        if(row===0 && col<firstDay || dayCount>daysInMonth){
+          calRows += '<td></td>';
+        } else {
+          const dd = String(dayCount).padStart(2,'0');
+          const mm = String(month+1).padStart(2,'0');
+          const cellDate = `${year}-${mm}-${dd}`;
+          const isSelected = cellDate === usedDate;
+          const isToday = cellDate === today;
+          calRows += `<td onclick="rBkgs(document.getElementById('ac'),'${cellDate}')" 
+            style="text-align:center;padding:.35rem .2rem;cursor:pointer;border-radius:6px;font-size:.82rem;font-weight:${isToday?'700':'400'};
+            background:${isSelected?'var(--blue)':'isToday'?'#e0f2fe':'transparent'};
+            color:${isSelected?'#fff':isToday&&!isSelected?'var(--blue)':'var(--text1)'};
+            border:${isToday&&!isSelected?'1.5px solid var(--blue)':'1px solid transparent'};
+            ${isSelected?'box-shadow:0 2px 6px rgba(59,130,246,.35)':''}"
+            title="${cellDate}">${dayCount}</td>`;
+          dayCount++;
+        }
+      }
+      calRows += '</tr>';
+    }
+
+    // Month nav
+    const prevMonth = new Date(year, month-1, 1);
+    const nextMonth = new Date(year, month+1, 1);
+    const prevStr = `${prevMonth.getFullYear()}-${String(prevMonth.getMonth()+1).padStart(2,'0')}-01`;
+    const nextStr = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth()+1).padStart(2,'0')}-01`;
+
+    ac.innerHTML=`
+    <div class="shdr"><div><h2>📋 Bookings</h2><p>Select a date from the calendar to view bookings.</p></div></div>
+    <div style="display:grid;grid-template-columns:260px 1fr;gap:1.2rem;align-items:start">
+      <!-- Calendar -->
+      <div class="card" style="padding:.9rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem">
+          <button class="btn btn-ghost btn-sm" style="padding:.25rem .5rem" onclick="rBkgs(document.getElementById('ac'),'${prevStr}')">‹</button>
+          <div style="font-weight:700;font-size:.9rem;color:var(--navy)">${monthNames[month]} ${year}</div>
+          <button class="btn btn-ghost btn-sm" style="padding:.25rem .5rem" onclick="rBkgs(document.getElementById('ac'),'${nextStr}')">›</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <thead><tr>${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<th style="text-align:center;font-size:.72rem;color:var(--text2);padding:.2rem;font-weight:600">${d}</th>`).join('')}</tr></thead>
+          <tbody>${calRows}</tbody>
+        </table>
+        <div style="margin-top:.7rem;border-top:1px solid var(--border);padding-top:.6rem">
+          <button class="btn btn-blue btn-sm" style="width:100%" onclick="rBkgs(document.getElementById('ac'),'${today}')">📅 Go to Today</button>
+        </div>
+      </div>
+      <!-- Bookings Table -->
+      <div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;align-items:center">
+          <div style="font-weight:700;font-size:1rem;color:var(--navy)">${usedDate===today?'Today — '+today:usedDate}</div>
+          <span class="bdg bgb">Total: ${total}</span>
+          <span class="bdg bgg">Served: ${served}</span>
+          <span class="bdg bga">Pending: ${pending}</span>
+          <span class="bdg bgr">Missed: ${missed}</span>
+        </div>
+        <div class="card" style="padding:0;overflow-x:auto"><table>
+          <thead><tr><th>Token</th><th>Citizen</th><th>Ration Card</th><th>Age</th><th>Slot</th><th>Status</th></tr></thead>
+          <tbody>
+          ${bkgs.length===0
+            ? '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text2)">No bookings for this date</td></tr>'
+            : bkgs.map(b=>`<tr>
+              <td style="font-weight:700;color:var(--blue)">${b.token_number}</td>
+              <td><b>${b.citizen_name}</b><br><span style="font-size:.73rem;color:var(--text2)">${b.phone||''}</span></td>
+              <td style="font-family:monospace;font-size:.79rem">${b.ration_card}</td>
+              <td>${b.age}</td>
+              <td style="font-size:.81rem">${b.slot_label}</td>
+                    <td><span class="bdg ${b.status==='booked'?'bga':b.status==='served'?'bgg':b.status==='expired'?'bgr':'bgr'}">${b.status}</span></td>
+            </tr>`).join('')}
+          </tbody>
+        </table></div>
+      </div>
+    </div>`;
+  } catch(e){ ac.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+// ── Admin: Serve Ration ──
+async function rServe(ac, dateFilter){
+  loading(ac,'Loading token queue...');
+  try {
+    const today = todayStr();
+    const usedDate = dateFilter || today;
+    const isToday = usedDate === today;
+
+    const [bookData, crowdData] = await Promise.all([
+      api('GET', '/admin/bookings?date=' + usedDate + (isToday ? '&status=booked' : '')),
+      api('GET','/admin/crowd')
+    ]);
+    // For today: show only pending/booked tokens for serving; for other days: show all
+    const allBkgs = bookData.bookings || [];
+    const pend = isToday
+      ? allBkgs.filter(b=>b.status==='booked').sort((a,b)=>new Date(a.booked_at)-new Date(b.booked_at))
+      : allBkgs.sort((a,b)=>new Date(a.booked_at)-new Date(b.booked_at));
+    const physCount = crowdData.crowd_count || 0;
+
+    // Build month calendar for date navigation
+    const selDate = new Date(usedDate + 'T00:00:00');
+    const year = selDate.getFullYear();
+    const month = selDate.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    let calRows = '';
+    let dayCount = 1;
+    for(let row=0; row<6; row++){
+      if(dayCount > daysInMonth) break;
+      calRows += '<tr>';
+      for(let col=0; col<7; col++){
+        if(row===0 && col<firstDay || dayCount>daysInMonth){
+          calRows += '<td></td>';
+        } else {
+          const dd = String(dayCount).padStart(2,'0');
+          const mm = String(month+1).padStart(2,'0');
+          const cellDate = `${year}-${mm}-${dd}`;
+          const isSelected = cellDate === usedDate;
+          const isTodayCell = cellDate === today;
+          calRows += `<td onclick="rServe(document.getElementById('ac'),'${cellDate}')" 
+            style="text-align:center;padding:.35rem .2rem;cursor:pointer;border-radius:6px;font-size:.82rem;font-weight:${isTodayCell?'700':'400'};
+            background:${isSelected?'var(--blue)':'transparent'};
+            color:${isSelected?'#fff':isTodayCell&&!isSelected?'var(--blue)':'var(--text1)'};
+            border:${isTodayCell&&!isSelected?'1.5px solid var(--blue)':'1px solid transparent'}"
+            title="${cellDate}">${dayCount}</td>`;
+          dayCount++;
+        }
+      }
+      calRows += '</tr>';
+    }
+    const prevMonth = new Date(year, month-1, 1);
+    const nextMonth = new Date(year, month+1, 1);
+    const prevStr = `${prevMonth.getFullYear()}-${String(prevMonth.getMonth()+1).padStart(2,'0')}-01`;
+    const nextStr = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth()+1).padStart(2,'0')}-01`;
+
+    ac.innerHTML=`
+    <div class="shdr"><div><h2>✅ Serve Ration</h2><p>${isToday ? 'Mark tokens as served. Stock deducted automatically.' : 'Viewing past bookings — Mark Served only available for today.'}</p></div></div>
+    <div id="sal"></div>
+    <div style="display:grid;grid-template-columns:260px 1fr;gap:1.2rem;align-items:start">
+      <!-- Calendar -->
+      <div class="card" style="padding:.9rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem">
+          <button class="btn btn-ghost btn-sm" style="padding:.25rem .5rem" onclick="rServe(document.getElementById('ac'),'${prevStr}')">‹</button>
+          <div style="font-weight:700;font-size:.9rem;color:var(--navy)">${monthNames[month]} ${year}</div>
+          <button class="btn btn-ghost btn-sm" style="padding:.25rem .5rem" onclick="rServe(document.getElementById('ac'),'${nextStr}')">›</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <thead><tr>${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<th style="text-align:center;font-size:.72rem;color:var(--text2);padding:.2rem;font-weight:600">${d}</th>`).join('')}</tr></thead>
+          <tbody>${calRows}</tbody>
+        </table>
+        <div style="margin-top:.7rem;border-top:1px solid var(--border);padding-top:.6rem">
+          <button class="btn btn-blue btn-sm" style="width:100%" onclick="rServe(document.getElementById('ac'),'${today}')">📅 Go to Today</button>
+        </div>
+        ${isToday?`<div style="margin-top:.5rem;background:#dcfce7;border:1px solid #86efac;border-radius:7px;padding:.5rem .7rem;font-size:.76rem;color:#15803d;text-align:center;font-weight:600">✅ Today — Serving Enabled</div>`:`<div style="margin-top:.5rem;background:#fef9c3;border:1px solid #fde047;border-radius:7px;padding:.5rem .7rem;font-size:.76rem;color:#713f12;text-align:center">👁️ View Only — Past Date</div>`}
+      </div>
+      <!-- Queue -->
+      <div>
+        ${isToday?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1rem">
+          <div class="ibox" id="serve-crowd-box">🏪 <b>${physCount} people</b> physically at shop right now.</div>
+          <div class="ibox">📋 <b>${pend.length} tokens</b> pending. Serve in booking order — first booked, first served.</div>
+        </div>`:`<div class="ibox" style="margin-bottom:1rem">📋 Showing all <b>${pend.length} bookings</b> for ${usedDate}. Switch to today to mark served.</div>`}
+        <div class="card" style="padding:0;overflow-x:auto"><table>
+          <tr><th>#</th><th>Token</th><th>Citizen</th><th>Card</th><th>Slot</th><th>Status</th>${isToday?'<th>Action</th>':''}</tr>
+          ${pend.length===0
+            ? `<tr><td colspan="${isToday?8:7}" style="text-align:center;padding:2rem;color:var(--green);font-weight:600">${isToday?'✅ All tokens served! Shop is clear.':'No bookings for this date.'}</td></tr>`
+            : pend.map((b,i)=>`<tr id="brow-${b.id}">
+              <td style="color:var(--text2);font-size:.81rem">${i+1}</td>
+              <td style="font-weight:700;font-size:1.05rem;color:var(--blue)">${b.token_number}</td>
+              <td><div style="font-weight:600">${b.citizen_name}</div><div style="font-size:.72rem;color:var(--text2)">${b.ration_card}</div></td>
+              <td><span class="bdg ${b.card_type==='AAY'?'bgr':b.card_type==='APL'?'bgb':'bgg'}">${b.card_type||'BPL'}</span></td>
+                    <td style="font-size:.81rem">${b.slot_label}</td>
+              <td><span class="bdg ${b.status==='booked'?'bga':b.status==='served'?'bgg':'bgr'}">${b.status}</span></td>
+              ${isToday?`<td><button class="btn-ok" onclick="serveTok(${b.id})">✓ Mark Served</button></td>`:''}
+            </tr>`).join('')}
+        </table></div>
+      </div>
+    </div>`;
+  } catch(e){ ac.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+async function serveTok(id){
+  const btn=event.target; btn.disabled=true; btn.textContent='Serving...';
+  try {
+    const res=await api('PATCH',`/admin/bookings/${id}/serve`);
+    const al=document.getElementById('sal');
+    if(al) al.innerHTML=`<div class="alert alert-s">✅ ${res.message} Physical crowd now: <b>${res.crowd_now} people</b>.</div>`;
+    // Remove the served row from UI
+    const row=document.getElementById(`brow-${id}`);
+    if(row) row.remove();
+    // Update the crowd info box
+    const crowdBox=document.getElementById('serve-crowd-box');
+    if(crowdBox) crowdBox.innerHTML=`🏪 <b>${res.crowd_now} people</b> physically at shop right now.`;
+  } catch(e){
+    const al=document.getElementById('sal');
+    if(al) al.innerHTML=`<div class="alert alert-e">❌ ${e.message}</div>`;
+    btn.disabled=false; btn.textContent='✓ Mark Served';
+  }
+}
+
+// ── Admin: Stock ──
+async function rAStk(ac){
+  loading(ac,'Loading stock...');
+  try {
+    const data=await api('GET','/admin/stock?shop_id=1');
+    ac.innerHTML=`
+    <div class="shdr"><div><h2>Stock Management</h2><p>Update quantities when new stock arrives.</p></div></div>
+    <div class="card" style="overflow-x:auto"><div class="ct">Current Stock Levels</div>
+    <div id="stock-alert"></div>
+    <table><tr><th>Item</th><th>Quantity</th><th>Max</th><th>Per Person</th><th>Level</th><th>Last Updated</th><th>Action</th></tr>
+    ${data.stock.map(s=>{
+      const pct=Math.round(s.quantity/s.max_capacity*100);
+      const col=pct>50?'#16a34a':pct>20?'#d97706':'#dc2626';
+      return `<tr>
+        <td style="font-weight:600">${s.item_name}</td>
+        <td><input type="number" value="${s.quantity}" id="stk${s.id}" step="0.01" style="width:80px;border:1.5px solid var(--border);border-radius:6px;padding:4px 8px;font-size:.83rem;color:var(--navy)"> ${s.unit}</td>
+        <td>${s.max_capacity} ${s.unit}</td>
+        <td>${s.allotment_per_person} ${s.unit}/person</td>
+        <td style="min-width:95px"><div style="display:flex;align-items:center;gap:.38rem">
+          <div style="flex:1;height:5px;background:#e2e8f0;border-radius:3px"><div style="height:100%;width:${pct}%;background:${col};border-radius:3px"></div></div>
+          <span style="font-size:.72rem;color:${col};font-weight:600">${pct}%</span>
+        </div></td>
+        <td style="font-size:.75rem;color:var(--text2)">${new Date(s.last_updated).toLocaleDateString()}</td>
+        <td><button class="btn btn-blue btn-sm" onclick="updStk(${s.id},1)">Save</button></td>
+      </tr>`;
+    }).join('')}
+    </table></div>
+    <div class="ibox" style="margin-top:1rem">💡 Stock is automatically deducted when you mark a token as served.</div>`;
+  } catch(e){ ac.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+async function updStk(id, shopId){
+  const val = parseFloat(document.getElementById('stk'+id).value);
+  const al  = document.getElementById('stock-alert');
+  if(isNaN(val)||val<0){ al.innerHTML='<div class="alert alert-e">Enter a valid quantity.</div>'; return; }
+  try {
+    await api('PATCH',`/admin/stock/${id}`,{ quantity:val, shop_id: shopId||1 });
+    al.innerHTML='<div class="alert alert-s">✅ Stock updated successfully.</div>';
+    setTimeout(()=>{ al.innerHTML=''; }, 3000);
+  } catch(e){ al.innerHTML=`<div class="alert alert-e">${e.message}</div>`; }
+}
+
+// ── Admin: Beneficiaries ──
+async function rBen(ac){
+  loading(ac,'Loading beneficiaries...');
+  try {
+    const data=await api('GET','/admin/beneficiaries');
+    ac.innerHTML=`
+    <div class="shdr"><div><h2>Beneficiary Records</h2><p>All registered citizens for your shop.</p></div></div>
+    <div style="display:flex;gap:.7rem;margin-bottom:1rem">
+      <input type="text" id="bsearch" placeholder="Search by name or ration card..." style="flex:1;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:9px 13px;font-size:.85rem;outline:none;color:var(--navy)">
+      <button class="btn btn-blue" onclick="searchBen()">Search</button>
+    </div>
+    <div id="ben-alert"></div>
+    <div id="ben-detail" style="display:none;margin-bottom:1rem"></div>
+    <div class="card" style="overflow-x:auto" id="ben-table">
+    <table><tr><th>#</th><th>Ration Card</th><th>Name</th><th>Phone</th><th>District</th><th>Members</th><th>Card Type</th><th>Action</th></tr>
+    ${data.citizens.length===0?'<tr><td colspan="8" style="text-align:center;color:var(--text2);padding:2rem">No citizens found</td></tr>':
+    data.citizens.map((c,i)=>`<tr>
+      <td style="color:var(--text2);font-size:.8rem">${i+1}</td>
+      <td style="font-family:monospace;font-size:.82rem;font-weight:600">${c.ration_card||'-'}</td>
+      <td><b>${c.name}</b><br><span style="font-size:.73rem;color:var(--text2)">${c.email}</span></td>
+      <td style="font-size:.82rem">${c.phone||'-'}</td>
+      <td style="font-size:.82rem">${c.district_name||'-'}</td>
+      <td style="text-align:center"><span class="bdg bgb">${c.family_count} members</span></td>
+      <td><span class="bdg ${c.card_type==='BPL'?'bgb':c.card_type==='AAY'?'bga':'bggr'}">${c.card_type}</span></td>
+      <td><button class="btn btn-ghost btn-sm" onclick="viewBenFamily(${c.id},'${c.name.replace(/'/g,"\\'")}')">👨‍👩‍👧 Family</button></td>
+    </tr>`).join('')}
+    </table></div>`;
+  } catch(e){ ac.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+async function viewBenFamily(userId, citizenName){
+  const detail = document.getElementById('ben-detail');
+  const al     = document.getElementById('ben-alert');
+  if(!detail) return;
+  detail.innerHTML=`<div style="text-align:center;padding:.8rem;color:var(--text2);font-size:.84rem">Loading family...</div>`;
+  detail.style.display='block';
+  try {
+    const data = await api('GET',`/admin/beneficiaries/${userId}`);
+    const fam  = data.family;
+    detail.innerHTML=`
+    <div class="card" style="border:2px solid var(--blue)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem">
+        <div><div class="ct" style="margin:0">👨‍👩‍👧 Family of ${citizenName}</div>
+          <div style="font-size:.75rem;color:var(--text2);margin-top:.2rem">Ration Card: ${data.citizen.ration_card}</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('ben-detail').style.display='none'">✕ Close</button>
+      </div>
+      <div id="admin-fam-alert"></div>
+      ${fam.length===0?'<p style="color:var(--text2);font-size:.84rem;text-align:center;padding:.5rem">No family members on record.</p>':
+      `<div style="overflow-x:auto"><table>
+        <tr><th>#</th><th>Name</th><th>Age</th><th>Gender</th><th>Relation to Head</th></tr>
+        ${fam.length===0?'<tr><td colspan="5" style="text-align:center;padding:1rem;color:var(--text2)">No family members found.</td></tr>':
+        fam.map(f=>`<tr>
+          <td style="color:var(--text2);font-size:.8rem;font-weight:600">${f.serial_no}</td>
+          <td><b>${f.name}</b>${f.serial_no===1?' <span class="bdg bgb" style="font-size:.6rem">Head</span>':''}</td>
+          <td>${f.age||'-'}</td>
+          <td>${f.gender||'-'}</td>
+          <td>${f.relation_to_head||'-'}</td>
+        </tr>`).join('')}
+      </table></div>`}
+
+      <div style="margin-top:.5rem;font-size:.75rem;color:var(--text2)">Total: ${fam.length} member(s) · Max 10 per card · Citizen notified automatically</div>
+    </div>`;
+  } catch(e){
+    detail.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`;
+  }
+}
+
+
+async function searchBen(){
+  const q=document.getElementById('bsearch').value.trim();
+  try {
+    const data=await api('GET',`/admin/beneficiaries${q?'?search='+encodeURIComponent(q):''}`);
+    const tbl=document.getElementById('ben-table');
+    if(tbl) tbl.innerHTML=`<table><tr><th>#</th><th>Ration Card</th><th>Name</th><th>Phone</th><th>District</th><th>Members</th><th>Card Type</th><th>Action</th></tr>
+    ${data.citizens.length===0?'<tr><td colspan="8" style="text-align:center;color:var(--text2);padding:2rem">No results found</td></tr>':
+    data.citizens.map((c,i)=>`<tr>
+      <td style="color:var(--text2);font-size:.8rem">${i+1}</td>
+      <td style="font-family:monospace;font-size:.82rem;font-weight:600">${c.ration_card||'-'}</td>
+      <td><b>${c.name}</b></td><td>${c.phone||'-'}</td><td>${c.district_name||'-'}</td>
+      <td style="text-align:center"><span class="bdg bgb">${c.family_count} members</span></td>
+      <td><span class="bdg ${c.card_type==='BPL'?'bgb':c.card_type==='AAY'?'bga':'bggr'}">${c.card_type}</span></td>
+      <td><button class="btn btn-ghost btn-sm" onclick="viewBenFamily(${c.id},'${c.name.replace(/'/g,"\\'")}')">👨‍👩‍👧 Family</button></td>
+    </tr>`).join('')}
+    </table>`;
+  } catch(e){ alert('Search error: '+e.message); }
+}
+
+// ── Admin: Send Notifications ──
+async function rSendN(ac){
+  ac.innerHTML=`
+  <div class="shdr"><div><h2>Send Notifications</h2></div></div>
+  <div class="g2" style="align-items:start">
+    <div class="card"><div class="ct">Compose Notification</div>
+      <div id="nal"></div>
+      <div class="fg"><label>Recipient</label>
+        <select id="nto" onchange="onNotifTargetChange()"><option value="all">All Citizens (this shop)</option><option value="specific">Specific citizen</option></select>
+      </div>
+      <div class="fg" id="nto-specific" style="display:none">
+        <label>Citizen ID / Phone / Email</label>
+        <input type="text" id="nident" placeholder="e.g. 12  or  9000000001  or  citizen@example.com">
+        <div style="font-size:.72rem;color:var(--text2);margin-top:.25rem">Enter one identifier. Must belong to a citizen registered with your shop.</div>
+      </div>
+      <div class="fg"><label>Type</label>
+        <select id="ntyp"><option value="slot">Slot Reminder</option><option value="crowd">Crowd Alert</option><option value="stock">Stock Alert</option><option value="general">General</option></select>
+      </div>
+      <div class="fg"><label>Message</label><textarea id="nmsg" placeholder="Type your message..."></textarea></div>
+      <button class="btn btn-blue" onclick="sendAdminNotif()">Send Notification →</button>
+    </div>
+    <div class="card"><div class="ct">Tips</div>
+      <p style="font-size:.84rem;color:var(--text2);line-height:1.7">When you update <b>Shop Status</b> from the Shop Status page, all citizens are automatically notified. Use this form for custom announcements like stock replenishment or special notices.</p>
+    </div>
+  </div>`;
+}
+
+function onNotifTargetChange(){
+  const to = document.getElementById('nto').value;
+  document.getElementById('nto-specific').style.display = to === 'specific' ? '' : 'none';
+}
+
+async function sendAdminNotif(){
+  const msg  = document.getElementById('nmsg').value.trim();
+  const type = document.getElementById('ntyp').value;
+  const to   = document.getElementById('nto').value;
+  const al   = document.getElementById('nal');
+  if(!msg){ al.innerHTML='<div class="alert alert-e">Please enter a message.</div>'; return; }
+
+  const payload = { message: msg, type };
+  if (to === 'specific') {
+    const ident = document.getElementById('nident').value.trim();
+    if (!ident) { al.innerHTML='<div class="alert alert-e">Please enter a Citizen ID, phone number, or email.</div>'; return; }
+    payload.identifier = ident;
+  }
+
+  try {
+    const resp = await api('POST','/admin/notifications', payload);
+    al.innerHTML = `<div class="alert alert-s">✅ ${resp.message || 'Notification sent.'}</div>`;
+    document.getElementById('nmsg').value='';
+    if (to === 'specific') document.getElementById('nident').value='';
+  } catch(e){ al.innerHTML=`<div class="alert alert-e">${e.message}</div>`; }
+}
+
+// ── Admin: Reports ──
+async function rRep(ac){
+  loading(ac,'Loading reports...');
+  try {
+    const data=await api('GET','/admin/reports?shop_id=1');
+    const bars=data.daily_served||[];
+    const maxVal=bars.reduce((m,b)=>Math.max(m,b.count),1);
+    ac.innerHTML=`
+    <div class="shdr"><div><h2>Reports & Analytics</h2></div></div>
+    <div class="g4" style="margin-bottom:1.2rem">
+      <div class="sc"><div class="sl">This Month</div><div class="sv">${data.monthly_total||0}</div><div class="ss">rations served</div></div>
+      <div class="sc"><div class="sl">Days with Data</div><div class="sv">${bars.length}</div><div class="ss">in last 14 days</div></div>
+      <div class="sc"><div class="sl">Stock Items</div><div class="sv">${data.stock_status?.length||0}</div><div class="ss">tracked</div></div>
+    </div>
+    <div class="g2" style="margin-bottom:1.2rem">
+      <div class="card"><div class="ct">Rations Served — Last 14 Days</div>
+        ${bars.length===0?'<p style="color:var(--text2);font-size:.84rem">No data yet.</p>':`
+        <div class="chart-wrap">${bars.map(b=>`<div class="chart-col" style="height:${Math.round(b.count/maxVal*100)}%" title="${b.day}: ${b.count} served"></div>`).join('')}</div>
+        <div style="display:flex;justify-content:space-between;font-size:.7rem;color:var(--text2);margin-top:.28rem"><span>${bars[0]?.day||''}</span><span>${bars[bars.length-1]?.day||''}</span></div>`}
+      </div>
+    </div>
+    <div class="card" style="overflow-x:auto"><div class="ct">Stock Consumption</div>
+    <table><tr><th>Item</th><th>Max Capacity</th><th>Remaining</th><th>Consumed</th><th>Utilization</th></tr>
+    ${(data.stock_status||[]).map(s=>{
+      const con=s.max_capacity-s.quantity;
+      const pct=Math.round(con/s.max_capacity*100);
+      return `<tr><td style="font-weight:600">${s.item_name}</td><td>${s.max_capacity}${s.unit}</td><td>${s.quantity}${s.unit}</td><td>${con.toFixed(1)}${s.unit}</td>
+      <td><div style="display:flex;align-items:center;gap:.38rem"><div style="width:58px;height:5px;background:#e2e8f0;border-radius:3px"><div style="height:100%;width:${pct}%;background:var(--blue);border-radius:3px"></div></div><span style="font-size:.72rem;color:var(--text2)">${pct}%</span></div></td></tr>`;
+    }).join('')||'<tr><td colspan="5" style="text-align:center;color:var(--text2);padding:1.5rem">No stock data</td></tr>'}
+    </table></div>`;
+  } catch(e){ ac.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+// ============================================================
+// APP INIT — Auto-restore session on page reload
+// ============================================================
+(function init(){
+  const savedToken = localStorage.getItem('r_token');
+  const savedUser  = localStorage.getItem('r_user');
+  const savedRole  = localStorage.getItem('r_role');
+
+  if(savedToken && savedUser){
+    try {
+      STATE.token = savedToken;
+      STATE.user  = JSON.parse(savedUser);
+
+      // savedRole is primary source of truth — prevents role switching on refresh
+      const role = savedRole || STATE.user.role;
+
+      if(role === 'admin'){
+        STATE.user.role = 'admin';
+        gp('admin');
+        aN('overview');
+        if(STATE.user.shop_id) initAdminSocket(STATE.user.shop_id);
+      } else {
+        STATE.user.role = 'citizen';
+        gp('citizen');
+        cNav('overview');
+        fetchNotifCount();
+        if(STATE.user.shop_id){
+          initSocket(STATE.user.shop_id);
+        }
+      }
+      return;
+    } catch(e){
+      clearToken();
+    }
+  }
+  gp('home');
+  setTimeout(loadDistricts, 100);
+})();
+
+
+// ═══════════════════════════════════════════════════════════
+// GOVERNMENT PORTAL
+// ═══════════════════════════════════════════════════════════
+const GOVT_KEY = 'GOVT_TELANGANA_2026'; // ← Must match GOVT_KEY in your backend .env
+
+function govtLogout(){
+  gp('login');
+}
+
+function gNav(sec){
+  document.querySelectorAll('#pg-govt .si').forEach(x=>x.classList.remove('on'));
+  const el = document.getElementById('gn-'+sec);
+  if(el) el.classList.add('on');
+  const gc = document.getElementById('gc');
+  const map = {
+    'dashboard':  ()=>rGovtDash(gc),
+    'complaints': ()=>rGovtComplaints(gc),
+    'shops':      ()=>rGovtShops(gc),
+    'ratings':    ()=>rGovtRatings(gc),
+  };
+  if(map[sec]) map[sec]();
+}
+
+async function govtApi(method, path, body){
+  // Send key as query param to avoid CORS preflight blocking custom headers
+  const sep = path.includes('?') ? '&' : '?';
+  const url = BACKEND + '/api/govt' + path + sep + 'key=' + encodeURIComponent(GOVT_KEY);
+  const opts = {
+    method,
+    headers: { 'Content-Type':'application/json' }
+  };
+  if(body) opts.body = JSON.stringify(body);
+  const res  = await fetch(url, opts);
+  const data = await res.json();
+  if(!res.ok) throw new Error(data.message || 'Error');
+  return data;
+}
+
+// ── Govt: Show login modal then load portal ──
+function openGovtPortal(){
+  const key = prompt('Enter Government Access Key:');
+  if(!key){ return; }
+  if(key !== GOVT_KEY){
+    alert('Invalid access key. Contact the District Collector\'s office.');
+    return;
+  }
+  gp('govt');
+  gNav('dashboard');
+}
+
+// ── Govt: Dashboard ──
+async function rGovtDash(gc){
+  loading(gc,'Loading government dashboard...');
+  try {
+    const d = await govtApi('GET','/dashboard');
+    const shops = d.shops || [];
+    const c     = d.complaints || {};
+    const dist  = d.districts  || [];
+    const totalCitizens = shops.reduce((a,s)=>a+(s.citizens||0),0);
+    const totalServed   = shops.reduce((a,s)=>a+(s.served_today||0),0);
+    const totalBooked   = shops.reduce((a,s)=>a+(s.bookings_today||0),0);
+    gc.innerHTML = `
+    <div class="shdr"><div><h2>🏛️ Government Dashboard</h2><p>Telangana Public Distribution System — Live Monitoring</p></div></div>
+
+    <!-- Top KPI row -->
+    <div class="g4" style="margin-bottom:1.2rem">
+      <div class="sc">
+        <div class="sl">Total Shops</div>
+        <div class="sv">${shops.length}</div>
+        <div class="ss">across ${dist.length} districts</div>
+      </div>
+      <div class="sc">
+        <div class="sl">Registered Citizens</div>
+        <div class="sv" style="color:var(--blue)">${totalCitizens.toLocaleString()}</div>
+        <div class="ss">active beneficiaries</div>
+      </div>
+      <div class="sc">
+        <div class="sl">Served Today</div>
+        <div class="sv" style="color:var(--green)">${totalServed}</div>
+        <div class="ss">of ${totalBooked} bookings today</div>
+      </div>
+      <div class="sc">
+        <div class="sl">Pending Complaints</div>
+        <div class="sv" style="color:var(--amber)">${c.pending||0}</div>
+        <div class="ss">${c.malpractice||0} malpractice reports</div>
+      </div>
+    </div>
+
+    <!-- District breakdown -->
+    <div class="card" style="margin-bottom:1.2rem">
+      <div class="ct">District-wise Citizens</div>
+      <div style="display:flex;gap:.7rem;flex-wrap:wrap">
+        ${dist.map(d=>`
+          <div style="background:#f8fafc;border:1px solid var(--border);border-radius:9px;padding:.6rem .9rem;min-width:140px">
+            <div style="font-size:.72rem;color:var(--text2);font-weight:600">${d.name}</div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--navy)">${(d.citizens||0).toLocaleString()}</div>
+            <div style="font-size:.7rem;color:var(--text3)">citizens</div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Shop activity table with visual progress -->
+    <div class="card">
+      <div class="ct">Shop-wise Today's Activity</div>
+      <div style="overflow-x:auto"><table>
+        <thead><tr><th>Shop</th><th>District</th><th>Citizens</th><th>Booked</th><th>Served</th><th>Progress</th></tr></thead>
+        <tbody>
+        ${shops.map(s=>{
+          const pct = s.bookings_today>0 ? Math.round((s.served_today/s.bookings_today)*100) : 0;
+          const col = pct>=80?'#16a34a':pct>=40?'#d97706':'#2563eb';
+          return `<tr>
+            <td><div style="font-weight:700;color:var(--navy)">${s.shop_name}</div><div style="font-size:.71rem;color:var(--text2)">${s.shop_code}</div></td>
+            <td style="font-size:.83rem">${s.district}</td>
+            <td style="font-weight:600">${s.citizens||0}</td>
+            <td style="color:var(--blue);font-weight:600">${s.bookings_today||0}</td>
+            <td style="color:var(--green);font-weight:700">${s.served_today||0}</td>
+            <td style="min-width:110px">
+              <div style="display:flex;align-items:center;gap:.4rem">
+                <div style="flex:1;height:7px;background:#e2e8f0;border-radius:4px;overflow:hidden">
+                  <div style="height:100%;width:${pct}%;background:${col};border-radius:4px"></div>
+                </div>
+                <span style="font-size:.72rem;color:${col};font-weight:700;min-width:2.5rem">${pct}%</span>
+              </div>
+            </td>
+          </tr>`;
+        }).join('')}
+        </tbody>
+      </table></div>
+    </div>`;
+  } catch(e){ gc.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+// ── Govt: All Complaints ──
+async function rGovtComplaints(gc){
+  loading(gc,'Loading complaints...');
+  try {
+    const d = await govtApi('GET','/complaints');
+    const complaints = d.complaints || [];
+    const stats = d.stats || {};
+    gc.innerHTML = `
+    <div class="shdr"><div><h2>📝 All Citizen Complaints</h2><p>Government Authority — Full Visibility</p></div></div>
+    <div class="g4" style="margin-bottom:1.2rem">
+      <div class="sc"><div class="sl">Total</div><div class="sv">${stats.total||0}</div></div>
+      <div class="sc"><div class="sl">Pending</div><div class="sv" style="color:var(--amber)">${stats.pending||0}</div></div>
+      <div class="sc"><div class="sl">Malpractice</div><div class="sv" style="color:var(--red)">${stats.malpractice||0}</div></div>
+      <div class="sc"><div class="sl">Resolved</div><div class="sv" style="color:var(--green)">${stats.resolved||0}</div></div>
+    </div>
+    <div class="card">
+      <div class="ct">Complaints (Latest First)</div>
+      <div style="overflow-x:auto"><table>
+        <thead><tr><th>#</th><th>Citizen</th><th>Shop</th><th>Category</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
+        <tbody id="govt-complaint-list">
+        ${complaints.map(c=>`<tr id="gcrow-${c.id}">
+          <td style="font-size:.8rem;color:var(--text2)">${c.id}</td>
+          <td><b>${c.citizen_name}</b><div style="font-size:.72rem;color:var(--text2)">${c.ration_card}</div></td>
+          <td><span style="font-size:.78rem">${c.shop_name||'—'}</span><div style="font-size:.7rem;color:var(--text2)">${c.district_name||''}</div></td>
+          <td><span class="bdg ${c.category.includes('Malpractice')?'bgr':'bgb'}">${c.category}</span></td>
+          <td><span class="bdg ${c.status==='resolved'?'bgg':c.status==='escalated'?'bgr':'bga'}">${c.status}</span></td>
+          <td style="font-size:.75rem;color:var(--text2)">${new Date(c.submitted_at).toLocaleDateString()}</td>
+          <td>
+            ${c.status==='pending'?`
+              <button class="btn btn-blue" style="font-size:.72rem;padding:.25rem .55rem" onclick="govtAction(${c.id},'resolved')">Resolve</button>
+              <button class="btn" style="font-size:.72rem;padding:.25rem .55rem;background:var(--red);color:#fff;border-color:var(--red);margin-top:.2rem" onclick="govtAction(${c.id},'escalated')">Escalate</button>
+            `:'<span style="color:var(--text3);font-size:.75rem">Done</span>'}
+          </td>
+        </tr>`).join('')}
+        </tbody>
+      </table></div>
+      ${complaints.length===0?'<p style="text-align:center;color:var(--text2);padding:1rem">No complaints found.</p>':''}
+    </div>`;
+  } catch(e){ gc.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+async function govtAction(id, action){
+  const note = action === 'escalated' ? 'Escalated to District Collector.' : '';
+  try {
+    await govtApi('PATCH', `/complaints/${id}/action`, { action, note });
+    const row = document.getElementById('gcrow-'+id);
+    if(row){
+      const statusCell = row.children[4];
+      if(statusCell) statusCell.innerHTML = `<span class="bdg ${action==='resolved'?'bgg':'bgr'}">${action}</span>`;
+      const actionCell = row.children[6];
+      if(actionCell) actionCell.innerHTML = '<span style="color:var(--text3);font-size:.75rem">Done</span>';
+    }
+    showLiveBanner(`✅ Complaint #${id} ${action}.`, 'success');
+  } catch(e){ showLiveBanner('Error: '+e.message, 'error'); }
+}
+
+// ── Govt: Shop Overview ──
+async function rGovtShops(gc){
+  loading(gc,'Loading shops...');
+  try {
+    const d = await govtApi('GET','/dashboard');
+    const shops = d.shops || [];
+
+    // Group shops by district
+    const byDistrict = {};
+    shops.forEach(s=>{
+      if(!byDistrict[s.district]) byDistrict[s.district]=[];
+      byDistrict[s.district].push(s);
+    });
+
+    gc.innerHTML = `
+    <div class="shdr">
+      <div><h2>🏪 Shop Overview</h2><p>${shops.length} ration shops across ${Object.keys(byDistrict).length} districts</p></div>
+    </div>
+
+    ${Object.entries(byDistrict).map(([district, dShops])=>`
+      <div style="margin-bottom:1.5rem">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem">
+          <div style="font-size:.75rem;font-weight:700;color:var(--blue);letter-spacing:.06em;text-transform:uppercase">${district} District</div>
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+          <span class="bdg bgb">${dShops.reduce((a,s)=>a+(s.citizens||0),0)} citizens</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.8rem">
+        ${dShops.map(s=>{
+          const pct = s.bookings_today>0 ? Math.round((s.served_today/s.bookings_today)*100) : 0;
+          const col = pct>=80?'var(--green)':pct>=40?'var(--amber)':'var(--blue)';
+          const hasActivity = s.bookings_today>0;
+          return `<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem;box-shadow:0 1px 4px rgba(0,0,0,.04)">
+            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:.6rem">
+              <div>
+                <div style="font-weight:700;color:var(--navy);font-size:.92rem">${s.shop_name}</div>
+                <div style="font-size:.72rem;color:var(--text2);margin-top:.1rem">${s.shop_code}</div>
+              </div>
+              <span class="bdg bgb" style="font-size:.68rem">${s.citizens||0} citizens</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-bottom:.7rem">
+              <div style="background:#f0fdf4;border-radius:7px;padding:.45rem .6rem;text-align:center">
+                <div style="font-size:1.3rem;font-weight:700;color:var(--green)">${s.served_today||0}</div>
+                <div style="font-size:.65rem;color:var(--text2)">served today</div>
+              </div>
+              <div style="background:#eff6ff;border-radius:7px;padding:.45rem .6rem;text-align:center">
+                <div style="font-size:1.3rem;font-weight:700;color:var(--blue)">${s.bookings_today||0}</div>
+                <div style="font-size:.65rem;color:var(--text2)">booked today</div>
+              </div>
+            </div>
+            ${hasActivity?`
+            <div style="display:flex;align-items:center;gap:.5rem">
+              <div style="flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden">
+                <div style="height:100%;width:${pct}%;background:${col};border-radius:3px;transition:width .5s"></div>
+              </div>
+              <span style="font-size:.72rem;font-weight:700;color:${col}">${pct}% served</span>
+            </div>`:
+            '<div style="font-size:.74rem;color:var(--text3);text-align:center;padding:.25rem 0">No bookings today</div>'}
+          </div>`;
+        }).join('')}
+        </div>
+      </div>`).join('')}`;
+  } catch(e){ gc.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+// Pre-load districts whenever register page is shown
+const origGp = window.gp;
+window.gp = function(p){
+  origGp(p);
+  if(p === 'register') loadDistricts();
+};
+
+// ── Govt: Ratings Panel (all shops) ──
+async function rGovtRatings(gc){
+  loading(gc,'Loading shop ratings...');
+  try {
+    const data = await govtApi('GET','/ratings');
+    const avgByShop = data.avg_by_shop || [];
+    const recent    = data.ratings || [];
+
+    gc.innerHTML = `
+    <div class="shdr"><div><h2>⭐ Shop Ratings</h2><p>Citizen feedback across all ration shops.</p></div></div>
+
+    <!-- Per-shop averages -->
+    <div style="font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:.7rem">Ratings by Shop</div>
+    ${avgByShop.length === 0
+      ? '<div class="card" style="text-align:center;padding:2rem;color:var(--text2);margin-bottom:1.2rem">No ratings submitted yet.</div>'
+      : `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem;margin-bottom:1.5rem">
+        ${avgByShop.map(s=>{
+          const avg = parseFloat(s.avg_stars)||0;
+          const col = avg>=4?'#16a34a':avg>=3?'#d97706':'#dc2626';
+          const label = avg>=4.5?'Excellent':avg>=3.5?'Good':avg>=2.5?'Average':'Poor';
+          return `<div class="card" style="padding:1rem;display:flex;align-items:center;gap:1rem">
+            <div style="text-align:center;min-width:56px">
+              <div style="font-size:1.8rem;font-weight:800;color:${col};line-height:1">${avg.toFixed(1)}</div>
+              <div style="font-size:.65rem;color:var(--text2);margin-top:.15rem">${label}</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="font-weight:700;color:var(--navy);font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.shop_name}</div>
+              <div style="font-size:.72rem;color:var(--text2)">${s.district||''} · ${s.shop_code}</div>
+              <div style="font-size:.73rem;color:var(--text3);margin-top:.2rem">${s.total_ratings} review${s.total_ratings!==1?'s':''}</div>
+              <div style="margin-top:.35rem;background:#e2e8f0;border-radius:4px;height:6px;overflow:hidden">
+                <div style="height:100%;width:${Math.min(avg/5*100,100)}%;background:${col};border-radius:4px"></div>
+              </div>
+            </div>
+          </div>`;
+        }).join('')}
+        </div>`}
+
+    <!-- Recent reviews -->
+    <div style="font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:.7rem">Recent Reviews</div>
+    <div style="display:grid;gap:.6rem">
+      ${recent.length === 0
+        ? '<div class="card" style="text-align:center;padding:2rem;color:var(--text2)">No reviews yet.</div>'
+        : recent.map(r=>`
+          <div class="card" style="padding:.85rem 1rem">
+            <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:.3rem">
+              <div>
+                <div style="font-weight:600;font-size:.88rem;color:var(--navy)">${r.citizen_name}</div>
+                <div style="font-size:.72rem;color:var(--text2)">${r.shop_name} · ${r.district||''}</div>
+                <div style="font-size:1.1rem;margin-top:.2rem">${'⭐'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+              </div>
+              <div style="font-size:.72rem;color:var(--text3)">${new Date(r.rated_at||r.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}</div>
+            </div>
+            ${r.review ? `<div style="margin-top:.5rem;font-size:.83rem;color:var(--text1);font-style:italic;padding:.5rem .7rem;background:#f8fafc;border-left:3px solid var(--blue);border-radius:0 6px 6px 0">"${r.review}"</div>` : ''}
+          </div>`).join('')}
+    </div>`;
+  } catch(e){ gc.innerHTML=`<div class="alert alert-e">Error: ${e.message}</div>`; }
+}
+
+</script>
+</body>
+</html>
