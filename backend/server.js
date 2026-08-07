@@ -1,5 +1,6 @@
 const express    = require('express');
 const http       = require('http');
+const path = require('path');
 const { Server } = require('socket.io');
 const cors       = require('cors');
 const db         = require('./db');
@@ -115,6 +116,12 @@ async function runAutoExpiry() {
 // Run immediately on startup, then every 60 seconds
 runAutoExpiry();
 setInterval(runAutoExpiry, 60 * 1000);
+
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+});
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
